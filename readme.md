@@ -15,11 +15,11 @@ server.js
         host: 'localhost',
         user: 'root',
         password : 'root',
-        port : 3306, //port mysql
-        database:'test'	
+        port : 3000, //port mysql
+        database:'test'
 
 
-	
+
 You're gonna need to create a DB named 'test' or whatever you name it,  import t_user.sql
 
 

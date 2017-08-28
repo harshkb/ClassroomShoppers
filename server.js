@@ -19,19 +19,22 @@ var connection  = require('express-myconnection'),
     mysql = require('mysql');
 
 app.use(
-
     connection(mysql,{
         host     : 'localhost',
         user     : 'root',
         password : 'root',
         database : 'test',
-        debug    : false //set true if you wanna see debug logger
+        debug    : true //set true if you wanna see debug logger
     },'request')
 
 );
 
 app.get('/',function(req,res){
     res.send('Welcome');
+});
+
+app.get('/testing',function(req,res){
+    res.render('404');
 });
 
 
@@ -56,7 +59,6 @@ var curut = router.route('/user');
 
 //show the CRUD interface | GET
 curut.get(function(req,res,next){
-
 
     req.getConnection(function(err,conn){
 
