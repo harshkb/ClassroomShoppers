@@ -23,105 +23,52 @@ app.use(
         host     : 'localhost',
         user     : 'root',
         password : 'root',
-        database : 'test',
-        debug    : true //set true if you wanna see debug logger
+        database : 'classroomshoppers',
+        debug    : false //set true if you wanna see debug logger
     },'request')
-
 );
 
-app.get('/',function(req,res){
-    res.send('Welcome');
-});
+// ------------------------------------------------------------
+// static pages
 
-app.get('/testing',function(req,res){
+app.get('/404',function(req,res){
     res.render('404');
 });
 
+app.get('/faq',function(req,res){
+    res.render('faq');
+});
+
+app.get('/about',function(req,res){
+    res.render('about');
+});
+
+app.get('/create-account',function(req,res){
+    res.render('create-account');
+});
+
+app.get('/logination',function(req,res){
+    res.render('logination');
+});
+
+// ------------------------------------------------------------
 
 //RESTful route
 var router = express.Router();
 
-
 /*------------------------------------------------------
-*  This is router middleware,invoked everytime
-*  we hit url /api and anything after /api
-*  like /api/user , /api/user/7
+*  This is router middleware,invoked everytime we hit url
 *  we can use this for doing validation,authetication
-*  for every route started with /api
 --------------------------------------------------------*/
 router.use(function(req, res, next) {
     console.log(req.method, req.url);
     next();
 });
 
-var curut = router.route('/user');
 
+// -----------------------------------------------------------------------------
 
-//show the CRUD interface | GET
-curut.get(function(req,res,next){
-
-    req.getConnection(function(err,conn){
-
-        if (err) return next("Cannot Connect");
-
-        var query = conn.query('SELECT * FROM t_user',function(err,rows){
-
-            if(err){
-                console.log(err);
-                return next("Mysql error, check your query");
-            }
-
-            res.render('user',{title:"RESTful Crud Example",data:rows});
-
-         });
-
-    });
-
-});
-//post data to DB | POST
-curut.post(function(req,res,next){
-
-    //validation
-    req.assert('name','Name is required').notEmpty();
-    req.assert('email','A valid email is required').isEmail();
-    req.assert('password','Enter a password 6 - 20').len(6,20);
-
-    var errors = req.validationErrors();
-    if(errors){
-        res.status(422).json(errors);
-        return;
-    }
-
-    //get data
-    var data = {
-        name:req.body.name,
-        email:req.body.email,
-        password:req.body.password
-     };
-
-    //inserting into mysql
-    req.getConnection(function (err, conn){
-
-        if (err) return next("Cannot Connect");
-
-        var query = conn.query("INSERT INTO t_user set ? ",data, function(err, rows){
-
-           if(err){
-                console.log(err);
-                return next("Mysql error, check your query");
-           }
-
-          res.sendStatus(200);
-
-        });
-
-     });
-
-});
-
-
-//now for Single route (GET,DELETE,PUT)
-var curut2 = router.route('/user/:user_id');
+var home = router.route('/');
 
 /*------------------------------------------------------
 route.all is extremely useful. you can use it to do
@@ -130,16 +77,18 @@ a validation everytime route /api/user/:user_id it hit.
 
 remove curut2.all() if you dont want it
 ------------------------------------------------------*/
-curut2.all(function(req,res,next){
-    console.log("You need to smth about curut2 Route ? Do it here");
+
+home.all(function(req,res,next){
+    console.log("You need to smth about home Route ? Do it here");
     console.log(req.params);
     next();
 });
 
 //get data to update
-curut2.get(function(req,res,next){
+home.get(function(req,res,next){
 
     var user_id = req.params.user_id;
+    res.render('index');
 
     req.getConnection(function(err,conn){
 
@@ -164,7 +113,7 @@ curut2.get(function(req,res,next){
 });
 
 //update data
-curut2.put(function(req,res,next){
+home.put(function(req,res,next){
     var user_id = req.params.user_id;
 
     //validation
@@ -206,7 +155,7 @@ curut2.put(function(req,res,next){
 });
 
 //delete data
-curut2.delete(function(req,res,next){
+home.delete(function(req,res,next){
 
     var user_id = req.params.user_id;
 
@@ -229,8 +178,180 @@ curut2.delete(function(req,res,next){
      });
 });
 
+// -----------------------------------------------------------------------------
+
+
+// var curut = router.route('/user');
+//
+// //show the CRUD interface | GET
+// curut.get(function(req,res,next){
+//
+//     req.getConnection(function(err,conn){
+//
+//         if (err) return next("Cannot Connect");
+//
+//         var query = conn.query('SELECT * FROM t_user',function(err,rows){
+//
+//             if(err){
+//                 console.log(err);
+//                 return next("Mysql error, check your query");
+//             }
+//
+//             res.render('user',{title:"RESTful Crud Example",data:rows});
+//
+//          });
+//
+//     });
+//
+// });
+// //post data to DB | POST
+// curut.post(function(req,res,next){
+//
+//     //validation
+//     req.assert('name','Name is required').notEmpty();
+//     req.assert('email','A valid email is required').isEmail();
+//     req.assert('password','Enter a password 6 - 20').len(6,20);
+//
+//     var errors = req.validationErrors();
+//     if(errors){
+//         res.status(422).json(errors);
+//         return;
+//     }
+//
+//     //get data
+//     var data = {
+//         name:req.body.name,
+//         email:req.body.email,
+//         password:req.body.password
+//      };
+//
+//     //inserting into mysql
+//     req.getConnection(function (err, conn){
+//
+//         if (err) return next("Cannot Connect");
+//
+//         var query = conn.query("INSERT INTO t_user set ? ",data, function(err, rows){
+//
+//            if(err){
+//                 console.log(err);
+//                 return next("Mysql error, check your query");
+//            }
+//
+//           res.sendStatus(200);
+//
+//         });
+//
+//      });
+//
+// });
+//
+// // -----------------------------------------------------------------------------
+//
+// var curut2 = router.route('/user/:user_id');
+//
+// curut2.all(function(req,res,next){
+//     console.log("You need to smth about curut2 Route ? Do it here");
+//     console.log(req.params);
+//     next();
+// });
+//
+// //get data to update
+// curut2.get(function(req,res,next){
+//
+//     var user_id = req.params.user_id;
+//
+//     req.getConnection(function(err,conn){
+//
+//         if (err) return next("Cannot Connect");
+//
+//         var query = conn.query("SELECT * FROM t_user WHERE user_id = ? ",[user_id],function(err,rows){
+//
+//             if(err){
+//                 console.log(err);
+//                 return next("Mysql error, check your query");
+//             }
+//
+//             //if user not found
+//             if(rows.length < 1)
+//                 return res.send("User Not found");
+//
+//             res.render('edit',{title:"Edit user",data:rows});
+//         });
+//
+//     });
+//
+// });
+//
+// //update data
+// curut2.put(function(req,res,next){
+//     var user_id = req.params.user_id;
+//
+//     //validation
+//     req.assert('name','Name is required').notEmpty();
+//     req.assert('email','A valid email is required').isEmail();
+//     req.assert('password','Enter a password 6 - 20').len(6,20);
+//
+//     var errors = req.validationErrors();
+//     if(errors){
+//         res.status(422).json(errors);
+//         return;
+//     }
+//
+//     //get data
+//     var data = {
+//         name:req.body.name,
+//         email:req.body.email,
+//         password:req.body.password
+//      };
+//
+//     //inserting into mysql
+//     req.getConnection(function (err, conn){
+//
+//         if (err) return next("Cannot Connect");
+//
+//         var query = conn.query("UPDATE t_user set ? WHERE user_id = ? ",[data,user_id], function(err, rows){
+//
+//            if(err){
+//                 console.log(err);
+//                 return next("Mysql error, check your query");
+//            }
+//
+//           res.sendStatus(200);
+//
+//         });
+//
+//      });
+//
+// });
+//
+// //delete data
+// curut2.delete(function(req,res,next){
+//
+//     var user_id = req.params.user_id;
+//
+//      req.getConnection(function (err, conn) {
+//
+//         if (err) return next("Cannot Connect");
+//
+//         var query = conn.query("DELETE FROM t_user  WHERE user_id = ? ",[user_id], function(err, rows){
+//
+//              if(err){
+//                 console.log(err);
+//                 return next("Mysql error, check your query");
+//              }
+//
+//              res.sendStatus(200);
+//
+//         });
+//         //console.log(query.sql);
+//
+//      });
+// });
+//
+// // -----------------------------------------------------------------------------
+
 //now we need to apply our router here
-app.use('/api', router);
+app.use(router);
 
 //start Server
 var server = app.listen(3000,function(){
