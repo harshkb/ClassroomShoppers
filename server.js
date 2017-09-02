@@ -22,9 +22,9 @@ app.use(
     connection(mysql,{
         host     : 'localhost',
         user     : 'root',
-        password : 'roowt',
+        password : 'root',
         database : 'classroomshoppers',
-        debug    : false //set true if you wanna see debug logger
+        debug    : true //set true if you wanna see debug logger
     },'request')
 );
 
@@ -134,7 +134,7 @@ home.put(function(req,res,next){
     //get data
     var data = {
         name:req.body.name,
-        email:req.body.email,
+        emailId:req.body.email,
         password:req.body.password
      };
 
@@ -181,6 +181,55 @@ home.delete(function(req,res,next){
 
      });
 });
+
+var createAcc = router.route('/createAccount');
+
+createAcc.all(function(req,res,next){
+    console.log(req.params);
+    next();
+});
+
+createAcc.post(function(req,res,next){
+
+    //validation
+    req.assert('firstName','Name is required').notEmpty();
+    req.assert('emailId','A valid email is required').isEmail();
+    req.assert('password','Enter a password 6 - 20').len(6,20);
+
+    var errors = req.validationErrors();
+    if(errors){
+        res.status(422).json(errors);
+        return;
+    }
+
+    //get data
+    var data = {
+        name:req.body.firstName+req.body.lastName,
+        emailId:req.body.emailId,
+        password:req.body.password
+     };
+
+    //inserting into mysql
+    req.getConnection(function (err, conn){
+
+        if (err) return next("Cannot Connect");
+// INSERT INTO `classroomshoppers`.`userdetail` (`emailId`, `name`, `password`) VALUES ('email', 'nameee', 'pass');
+
+        var query = conn.query("INSERT INTO classroomshoppers.userdetail set ? ", data, function(err, rows){
+
+           if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+           }
+
+          res.sendStatus(200);
+
+        });
+
+     });
+
+});
+
 
 // -----------------------------------------------------------------------------
 
