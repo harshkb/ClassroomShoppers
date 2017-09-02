@@ -43,6 +43,10 @@ app.get('/about',function(req,res){
     res.render('about');
 });
 
+app.get('/sitemap',function(req,res){
+    res.render('sitemap');
+});
+
 app.get('/create-account',function(req,res){
     res.render('create-account');
 });
