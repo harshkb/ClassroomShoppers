@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: classroomflipkart
+-- Host: localhost    Database: classroomshoppers
 -- ------------------------------------------------------
 -- Server version	5.7.12-log
 
@@ -64,31 +64,6 @@ LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` VALUES ('APPLIANCES','Air Conditioners','100','1200'),('APPLIANCES','Kitchen Appliances','100','1200'),('APPLIANCES','Refrigerators','100','1200'),('APPLIANCES','Smart Home Appliances','100','1200'),('APPLIANCES','Televisions','100','1200'),('APPLIANCES','Washing Machine','100','1200'),('BABY & KIDS','Baby Care','100','1200'),('BABY & KIDS','Boy`s Clothing','100','1200'),('BABY & KIDS','Boy`s Foot Wear','100','1200'),('BABY & KIDS','Girl`s Clothing','100','1200'),('BABY & KIDS','Girl`s Foot Wear','100','1200'),('BABY & KIDS','Toys','100','1200'),('BOOKS & MORE','Books','100','1200'),('BOOKS & MORE','Car & Bike Accessories','100','1200'),('BOOKS & MORE','Car Electronics & Applications','100','1200'),('BOOKS & MORE','Exercise & Fitness','100','1200'),('BOOKS & MORE','Gaming & Accessories','100','1200'),('BOOKS & MORE','Music','100','1200'),('BOOKS & MORE','Sports','100','1200'),('BOOKS & MORE','Stationery','100','1200'),('ELECTRONICS','Desktop PCs','100','1200'),('ELECTRONICS','Home Entertainement','100','1200'),('ELECTRONICS','Laptops','100','1200'),('ELECTRONICS','Mobile','100','1200'),('ELECTRONICS','Mobile Accessories','100','1200'),('ELECTRONICS','Smart Wearables Tech','100','1200'),('FURNITURE','Furnishing','100','1200'),('FURNITURE','furniture','100','1200'),('FURNITURE','Kitchen & Dining','100','1200'),('FURNITURE','Kitchen Storage','100','1200'),('FURNITURE','Lightning','100','1200'),('FURNITURE','Wall Decals & Stickers','100','1200'),('MEN','Accessories','100','1200'),('MEN','Bottom Wear','100','1200'),('MEN','Footwear','100','1200'),('MEN','Men\'s Grooming','100','1200'),('MEN','Sports Wear','100','1200'),('MEN','Top Wear','100','1200'),('MEN','Watches','100','1200'),('WOMEN','Accessories','100','1200'),('WOMEN','Beauty & Grooming','100','1200'),('WOMEN','Ethnic Wear','100','1200'),('WOMEN','Foot Wear','100','1200'),('WOMEN','Jewellery','100','1200'),('WOMEN','Sports Wear','100','1200'),('WOMEN','Western Wear','100','1200');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `currentuser`
---
-
-DROP TABLE IF EXISTS `currentuser`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `currentuser` (
-  `id` varchar(100) NOT NULL,
-  `emailId` varchar(100) NOT NULL,
-  `name` varchar(400) NOT NULL,
-  PRIMARY KEY (`id`,`emailId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `currentuser`
---
-
-LOCK TABLES `currentuser` WRITE;
-/*!40000 ALTER TABLE `currentuser` DISABLE KEYS */;
-INSERT INTO `currentuser` VALUES ('.8Q8MF32.CN762064CH1JMT.','submiitr07@gmail.com','Shubham Madheysia');
-/*!40000 ALTER TABLE `currentuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -283,7 +258,6 @@ CREATE TABLE `userdetail` (
   `emailId` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `certifiedUser` varchar(20) NOT NULL,
   PRIMARY KEY (`emailId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -294,7 +268,7 @@ CREATE TABLE `userdetail` (
 
 LOCK TABLES `userdetail` WRITE;
 /*!40000 ALTER TABLE `userdetail` DISABLE KEYS */;
-INSERT INTO `userdetail` VALUES ('hkbansal@gmail.com','Harsh Bansal','iitr','yes'),('paras@gmail.com','Paras Jindal','iitr','no'),('ravi@gmail.com','Ravi Sharma','iitr','no'),('submiitr07@gmail.com','Shubham Madheysia','iitr','yes'),('vkthakur@gmail.com','Vikrant Thakur','iitr','yes');
+INSERT INTO `userdetail` VALUES ('hkbansal@gmail.com','Harsh Bansal','iitr'),('manish@gmail.com','ManishKumar','manish'),('paras@gmail.com','Paras Jindal','iitr'),('ravi@gmail.com','Ravi Sharma','iitr'),('rupalbar@gmail.com','RupalBarua','shubham07'),('submiit@gmail.com','ShubhamMadheysia','shubham'),('submiitr07@gmail.com','Shubham Madheysia','iitr'),('vkthakur@gmail.com','Vikrant Thakur','iitr');
 /*!40000 ALTER TABLE `userdetail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,4 +307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-11 21:15:30
+-- Dump completed on 2017-09-05 23:52:09

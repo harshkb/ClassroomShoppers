@@ -65,7 +65,11 @@
             </div>
           </div>
         </div>
-      </div>        <div class="dropdown pull-right"> <a href="#" class="btn dropdown-toggle btn--links--dropdown header__dropdowns__button" data-toggle="dropdown"><span class="icon icon-dots"></span></a>
+      </div>
+      <div class="dropdown pull-right">
+        <a href="#" class="btn dropdown-toggle btn--links--dropdown header__dropdowns__button" data-toggle="dropdown">
+          <span class="icon icon-dots"></span>
+        </a>
         <ul class="dropdown-menu ul-row animated fadeIn" role="menu">
           <li class='li-col list-user-menu'>
             <h4>My Account</h4>
@@ -74,6 +78,7 @@
               <li><a href="#">Wishlist</a></li>
               <li><a href="#">Compare</a></li>
               <li><a href="#">Checkout</a></li>
+              <li id="myAcc"></li>
             </ul>
           </li>
         </ul>
@@ -171,8 +176,18 @@
   </nav>
 </header>
 <script>
-  if (localStorage.name!=undefined)
+  if (localStorage.name!=undefined){
+    document.getElementById("myAcc").innerHTML = '<a href="#" onClick="signOut()">Sign Out</a>';
     document.getElementById("userDetail").innerHTML = '<li class="user-links__item user-name">Hi '+localStorage.name+'</li>';
+  }
   else
     document.getElementById("userDetail").innerHTML = '<li class="user-links__item"><a href="/create-account/">Sign Up</a></li><li  class="user-links__item user-links__item--separate"><a href="/login-account">LOGIN</a></li>';
+
+  function signOut(){
+    localStorage.removeItem("name");
+    localStorage.removeItem("emailId");
+    document.getElementById("myAcc").innerHTML = '';
+    document.getElementById("userDetail").innerHTML = '<li class="user-links__item"><a href="/create-account/">Sign Up</a></li><li  class="user-links__item user-links__item--separate"><a href="/login-account">LOGIN</a></li>';
+  }
+
 </script>
