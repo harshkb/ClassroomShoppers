@@ -25,6 +25,7 @@
 <!-- Custom Fonts -->
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/../vendor/jquery/jquery-1.10.2.min.js"></script>
 
 <!-- Head Libs -->
 
@@ -69,15 +70,18 @@
         <div class="row">
           <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
             <div class="card card--form"> <a href="#" class="icon card--form__icon icon-user-circle"></a>
-              <form action="#" class="contact-form">
-                <input type="text" class="input--wd input--wd--full" placeholder="Email">
-                <input type="password" class="input--wd input--wd--full" placeholder="Password">
+              <form class="contact-form" id="loginForm">
+                <div class="alert alert-danger collapse">
+                  <button class="close" data-close="alert"></button> Something went wrong, try refreshing and submitting the form again.
+                </div>
+                <input type="text" class="input--wd input--wd--full" id="emailId" name="emailId" placeholder="Email">
+                <input type="password" class="input--wd input--wd--full" id="password" name="password" placeholder="Password">
                 <div class="checkbox-group">
                   <input type="checkbox" id="checkBox1">
                   <label for="checkBox1"> <span class="check"></span> <span class="box"></span>Remember me</label>
                 </div>
                 <div class="divider divider--xs"></div>
-                <button type="submit" class="btn btn--wd text-uppercase wave waves-effect">Sign In</button>
+                <button type="submit" class="btn btn--wd text-uppercase wave waves-effect" >Sign In</button>
               </form>
               <!-- <div class="card--form__footer"> <a href="#">Forgot Your Password?</a><br><a href="#">&lt;&nbsp;Back</a> </div> -->
             </div>
@@ -97,7 +101,7 @@
 </div>
 <!-- /../Vendor -->
 <!-- jQuery 1.10.1-->
-<script src="/../vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="/../vendor/jquery/jquery-1.10.2.min.js"></script>
 <!-- Bootstrap 3-->
 <script src="/../vendor/bootstrap/bootstrap.min.js"></script>
 <!-- Specific Page /../Vendor -->
@@ -116,5 +120,48 @@
 <script src="/../vendor/form/jquery.validate.min.js"></script>
 <!-- Custom -->
 <script src="/../js/custom.js"></script>
+<script>
+  $('#loginForm').on('submit', function(e) {
+    debugger;
+    e.preventDefault();
+
+    $.ajax({
+
+      url:"/login-account",
+      type:"put",
+      data:$("#loginForm").serialize(),
+      success:function(res){
+        debugger;
+        // Check browser support
+        if (typeof(Storage) !== "undefined"){
+          localStorage.setItem("name", res);
+          localStorage.setItem("emailId", $("#emailId").val());
+        }
+
+        window.location.href = '/';
+        return false;
+      },
+      error:function(xhr, status, error){
+        debugger;
+
+        var err = '';
+        if (error == "Bad Request")
+          err = "Invalid credinationals";
+        else {
+          $.each(JSON.parse(xhr.responseText) , function(i, item) {
+            err += item.msg;
+          });
+        }
+
+        $(".alert-danger").text(err);
+        $(".alert-danger").removeClass("collapse");
+        setTimeout(function(){ $(".alert-danger").addClass("collapse"); }, 5000);
+
+        return false;
+      }
+    });
+  });
+
+</script>
 </body>
 </html>

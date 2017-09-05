@@ -73,13 +73,12 @@
               <div class="divider divider--xs"></div>
               <form action="" method="post" class="contact-form" id="createAccountForm">
                 <h6 class="text-uppercase text-left">Personal Information</h6>
-                <input type="text" class="input--wd input--wd--full" name="firstName" placeholder="First name *">
-                <input type="text" class="input--wd input--wd--full" name="lastName" placeholder="Last name *">
-                <input type="text" class="input--wd input--wd--full" name="emailId" placeholder="Email address *">
-                <div class="checkbox-group">
-                  <input type="checkbox" id="checkBox1">
-                  <label for="checkBox1"> <span class="check"></span> <span class="box"></span>Sign Up for Newsletter</label>
+                <div class="alert alert-danger collapse">
+                  <button class="close" data-close="alert"></button> Something went wrong, try refreshing and submitting the form again.
                 </div>
+                <input type="text" class="input--wd input--wd--full" id="firstName" name="firstName" placeholder="First name *">
+                <input type="text" class="input--wd input--wd--full" id="lastName" name="lastName" placeholder="Last name *">
+                <input type="text" class="input--wd input--wd--full" name="emailId" placeholder="Email address *">
                 <div class="divider divider--xs"></div>
                 <h6 class="text-uppercase text-left">Login Information</h6>
                 <input type="password" name="password" class="input--wd input--wd--full" placeholder="Password *">
@@ -94,7 +93,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="divider divider--xl"></div> -->
       </div>
     </section>
 
@@ -124,24 +122,33 @@
 <script src="/../js/custom.js"></script>
 <script>
     function createAccount(){
+
        $.ajax({
 
-        url:"/createAccount",
+        url:"/create-account",
         type:"post",
         data:$("#createAccountForm").serialize(),
         success:function(res){
+            debugger;
+            // Check browser support
+            if (typeof(Storage) !== "undefined"){
+              localStorage.setItem("name", $("#firstName").val()+" "+$("#lastName").val());
+              localStorage.setItem("emailId", $("#emailId").val());
+            }
             window.location.href = '/';
             return false;
         },
         error:function(xhr, status, error){
 
-            console.log(xhr.responseText);
             var err = '';
-            // $.each(JSON.parse(xhr.responseText) , function(i, item) {
-            //
-            //      err +='<li>'+item.msg+'</li>';
-            // });
-            // $(".err-area").html(err);
+            $.each(JSON.parse(xhr.responseText) , function(i, item) {
+                 err += item.msg;
+            });
+
+            $(".alert-danger").text(err);
+            $(".alert-danger").removeClass("collapse");
+            setTimeout(function(){ $(".alert-danger").addClass("collapse"); }, 5000);
+
             return false;
         }
 

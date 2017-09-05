@@ -14,10 +14,7 @@
       </div>
       <div class="pull-right">
         <div class="user-links">
-          <ul>
-            <li class="user-links__item user-name"></li>
-            <li class="user-links__item"><a href="/create-account/">Sign Up</a></li>
-            <li  class="user-links__item user-links__item--separate"><a href="/logination">LOGIN</a></li>
+          <ul id ="userDetail">
           </ul>
         </div>
       </div>
@@ -71,7 +68,7 @@
       </div>        <div class="dropdown pull-right"> <a href="#" class="btn dropdown-toggle btn--links--dropdown header__dropdowns__button" data-toggle="dropdown"><span class="icon icon-dots"></span></a>
         <ul class="dropdown-menu ul-row animated fadeIn" role="menu">
           <li class='li-col list-user-menu'>
-      <h4>My Account</h4>
+            <h4>My Account</h4>
             <ul>
               <li><a href="#">Account</a></li>
               <li><a href="#">Wishlist</a></li>
@@ -173,3 +170,9 @@
     </div>
   </nav>
 </header>
+<script>
+  if (localStorage.name!=undefined)
+    document.getElementById("userDetail").innerHTML = '<li class="user-links__item user-name">Hi '+localStorage.name+'</li>';
+  else
+    document.getElementById("userDetail").innerHTML = '<li class="user-links__item"><a href="/create-account/">Sign Up</a></li><li  class="user-links__item user-links__item--separate"><a href="/login-account">LOGIN</a></li>';
+</script>

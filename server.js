@@ -24,7 +24,7 @@ app.use(
         user     : 'root',
         password : 'root',
         database : 'classroomshoppers',
-        debug    : true //set true if you wanna see debug logger
+        debug    : false //set true if you wanna see debug logger
     },'request')
 );
 
@@ -45,14 +45,6 @@ app.get('/about',function(req,res){
 
 app.get('/sitemap',function(req,res){
     res.render('sitemap');
-});
-
-app.get('/create-account',function(req,res){
-    res.render('create-account');
-});
-
-app.get('/logination',function(req,res){
-    res.render('logination');
 });
 
 // ------------------------------------------------------------
@@ -182,21 +174,31 @@ home.delete(function(req,res,next){
      });
 });
 
-var createAcc = router.route('/createAccount');
+var createAcc = router.route('/create-account');
 
-createAcc.all(function(req,res,next){
-    console.log(req.params);
-    next();
+createAcc.get(function(req,res,next){
+  res.render('create-account');
 });
 
 createAcc.post(function(req,res,next){
 
-    //validation
-    req.assert('firstName','Name is required').notEmpty();
-    req.assert('emailId','A valid email is required').isEmail();
-    req.assert('password','Enter a password 6 - 20').len(6,20);
-
+    //server side validation*********
+    req.assert('firstName','First Name is required').matches(/[^\s\\]/);
     var errors = req.validationErrors();
+    if(errors){
+        res.status(422).json(errors);
+        return;
+    }
+
+    req.assert('emailId','A valid email is required').isEmail();
+    errors = req.validationErrors();
+    if(errors){
+        res.status(422).json(errors);
+        return;
+    }
+
+    req.assert('password','Enter a password 6 - 20').len(6,20);
+    errors = req.validationErrors();
     if(errors){
         res.status(422).json(errors);
         return;
@@ -211,24 +213,65 @@ createAcc.post(function(req,res,next){
 
     //inserting into mysql
     req.getConnection(function (err, conn){
-
         if (err) return next("Cannot Connect");
-// INSERT INTO `classroomshoppers`.`userdetail` (`emailId`, `name`, `password`) VALUES ('email', 'nameee', 'pass');
 
         var query = conn.query("INSERT INTO classroomshoppers.userdetail set ? ", data, function(err, rows){
-
            if(err){
                 console.log(err);
                 return next("Mysql error, check your query");
            }
 
-          res.sendStatus(200);
-
+           res.sendStatus(200);
         });
-
      });
-
 });
+
+var loginAcc = router.route('/login-account');
+
+loginAcc.get(function(req,res,next){
+  res.render('login-account');
+});
+
+loginAcc.put(function(req,res,next){
+  console.error("inside post--------------");
+
+  req.assert('emailId','A valid email is required').isEmail();
+  errors = req.validationErrors();
+  if(errors){
+      res.status(422).json(errors);
+      return;
+  }
+
+  req.assert('password','Empty password not alllowed').notEmpty();
+  errors = req.validationErrors();
+  if(errors){
+      res.status(422).json(errors);
+      return;
+  }
+
+  var emailId = req.body.emailId;
+  var password = req.body.password;
+
+  req.getConnection(function(err,conn){
+      if (err){
+        console.log(err);
+        return next("Cannot Connect");
+      }
+
+      var query = conn.query("SELECT name FROM classroomshoppers.userdetail WHERE emailId = '"+emailId+"' and password = '"+password+"' ", function(err,rows){
+          if(err){
+            console.log(err);
+              return next("Mysql error, check your query");
+          }
+          if(rows.length==0)
+            res.status(400).json("Invalid emailID - password");
+          else
+          res.status(200).json(rows[0].name);
+       });
+  });
+});
+
+
 
 
 // -----------------------------------------------------------------------------
@@ -407,7 +450,7 @@ createAcc.post(function(req,res,next){
 app.use(router);
 
 //start Server
-var server = app.listen(3000,function(){
+var server = app.listen(8000,function(){
 
    console.log("Listening to port %s",server.address().port);
 
