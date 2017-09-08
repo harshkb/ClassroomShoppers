@@ -108,71 +108,71 @@ home.get(function(req,res,next){
 
 });
 
-//update data
-home.put(function(req,res,next){
-    var user_id = req.params.user_id;
+// //update data
+// home.put(function(req,res,next){
+//     var user_id = req.params.user_id;
 
-    //validation
-    req.assert('name','Name is required').notEmpty();
-    req.assert('email','A valid email is required').isEmail();
-    req.assert('password','Enter a password 6 - 20').len(6,20);
+//     //validation
+//     req.assert('name','Name is required').notEmpty();
+//     req.assert('email','A valid email is required').isEmail();
+//     req.assert('password','Enter a password 6 - 20').len(6,20);
 
-    var errors = req.validationErrors();
-    if(errors){
-        res.status(422).json(errors);
-        return;
-    }
+//     var errors = req.validationErrors();
+//     if(errors){
+//         res.status(422).json(errors);
+//         return;
+//     }
 
-    //get data
-    var data = {
-        name:req.body.name,
-        emailId:req.body.email,
-        password:req.body.password
-     };
+//     //get data
+//     var data = {
+//         name:req.body.name,
+//         emailId:req.body.email,
+//         password:req.body.password
+//      };
 
-    //inserting into mysql
-    req.getConnection(function (err, conn){
+//     //inserting into mysql
+//     req.getConnection(function (err, conn){
 
-        if (err) return next("Cannot Connect");
+//         if (err) return next("Cannot Connect");
 
-        var query = conn.query("UPDATE t_user set ? WHERE user_id = ? ",[data,user_id], function(err, rows){
+//         var query = conn.query("UPDATE t_user set ? WHERE user_id = ? ",[data,user_id], function(err, rows){
 
-           if(err){
-                console.log(err);
-                return next("Mysql error, check your query");
-           }
+//            if(err){
+//                 console.log(err);
+//                 return next("Mysql error, check your query");
+//            }
 
-          res.sendStatus(200);
+//           res.sendStatus(200);
 
-        });
+//         });
 
-     });
+//      });
 
-});
+// });
 
-//delete data
-home.delete(function(req,res,next){
+// //delete data
+// home.delete(function(req,res,next){
 
-    var user_id = req.params.user_id;
+//     var user_id = req.params.user_id;
 
-     req.getConnection(function (err, conn) {
+//      req.getConnection(function (err, conn) {
 
-        if (err) return next("Cannot Connect");
+//         if (err) return next("Cannot Connect");
 
-        var query = conn.query("DELETE FROM t_user  WHERE user_id = ? ",[user_id], function(err, rows){
+//         var query = conn.query("DELETE FROM t_user  WHERE user_id = ? ",[user_id], function(err, rows){
 
-             if(err){
-                console.log(err);
-                return next("Mysql error, check your query");
-             }
+//              if(err){
+//                 console.log(err);
+//                 return next("Mysql error, check your query");
+//              }
 
-             res.sendStatus(200);
+//              res.sendStatus(200);
 
-        });
-        //console.log(query.sql);
+//         });
+//         //console.log(query.sql);
 
-     });
-});
+//      });
+// });
 
 var createAcc = router.route('/create-account');
 
