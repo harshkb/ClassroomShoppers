@@ -47,6 +47,77 @@ app.get('/sitemap',function(req,res){
     res.render('sitemap');
 });
 
+ app.get('/account-address',function(req,res){
+    res.render('account-address');
+});
+
+app.get('/account-order',function(req,res){
+    res.render('account-order');
+});
+
+app.get('/checkout',function(req,res){
+    res.render('checkout');
+});
+
+app.get('/contact',function(req,res){
+    res.render('contact');
+});
+
+app.get('/create-account',function(req,res){
+    res.render('create-account');
+});
+
+app.get('/edit',function(req,res){
+    res.render('edit');
+});
+
+app.get('/footer',function(req,res){
+    res.render('footer');
+});
+
+app.get('/header',function(req,res){
+    res.render('header');
+});
+
+app.get('/index',function(req,res){
+    res.render('index');
+});
+
+app.get('/listing',function(req,res){
+    res.render('listing');
+});
+
+app.get('/listing-empty-category',function(req,res){
+    res.render('listing-empty-category');
+});
+
+app.get('/login-account',function(req,res){
+    res.render('login-account');
+});
+
+app.get('/product-layout4',function(req,res){
+    res.render('product-layout4');
+});
+
+app.get('/search',function(req,res){
+    res.render('search');
+});
+
+app.get('/shopping-cart-empty',function(req,res){
+    res.render('shopping-cart-empty');
+});
+
+app.get('/shopping-cart-right-column',function(req,res){
+    res.render('shopping-cart-right-column');
+});
+
+app.get('/user',function(req,res){
+    res.render('user');
+});
+
+app.get('/wishlist',function(req,res){
+    res.render('wishlist');
+});
 // ------------------------------------------------------------
 
 //RESTful route
