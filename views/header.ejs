@@ -95,81 +95,15 @@
       <div class="pull-left search-focus-fade" id="slidemenu">
         <div class="slidemenu-close visible-xs">✕</div>
         <ul class="nav navbar-nav">
-          <li> <a href="index.html" class="dropdown-toggle"><span class="link-name">APPLIANCES</span><span class="caret caret--dots"></span></a>
-            <ul class="dropdown-menu animated fadeIn" role="menu">
-              <li><a href="index-layout1.html">Air Conditioners</a></li>
-              <li><a href="index-layout2.html">Kitchen Appliances</a></li>
-              <li><a href="index-layout3.html">Refrigerators</a></li>
-              <li><a href="index-layout4.html">Smart Home Appliances</a></li>
-              <li><a href="index-layout5.html">Televisions</a></li>
-              <li><a href="index-layout6.html">Washing Machine</a></li>
-            </ul>
-          </li>
-          <li> <a href="index.html" class="dropdown-toggle"><span class="link-name">BABY & KIDS</span><span class="caret caret--dots"></span></a>
-            <ul class="dropdown-menu animated fadeIn" role="menu">
-              <li><a href="index-layout1.html">Baby Care</a></li>
-              <li><a href="index-layout2.html">Boy`s Clothing</a></li>
-              <li><a href="index-layout3.html">Boy`s Foot Wear</a></li>
-              <li><a href="index-layout4.html">Girl`s Clothing</a></li>
-              <li><a href="index-layout5.html">Girl`s Foot Wear</a></li>
-              <li><a href="index-layout6.html">Toys</a></li>
-            </ul>
-          </li>
-          <li> <a href="index.html" class="dropdown-toggle"><span class="link-name">BOOKS & MORE</span><span class="caret caret--dots"></span></a>
-            <ul class="dropdown-menu animated fadeIn" role="menu">
-              <li><a href="index-layout1.html">Books</a></li>
-              <li><a href="index-layout2.html">Car & Bike Accessories</a></li>
-              <li><a href="index-layout3.html">Car Electronics & Applications</a></li>
-              <li><a href="index-layout4.html">Exercise & Fitness</a></li>
-              <li><a href="index-layout5.html">Gaming & Accessories</a></li>
-              <li><a href="index-layout6.html">Music</a></li>
-              <li><a href="index-layout6.html">Sports</a></li>
-              <li><a href="index-layout6.html">Stationery</a></li>
-            </ul>
-          </li>
-          <li> <a href="index.html" class="dropdown-toggle"><span class="link-name">ELECTRONICS</span><span class="caret caret--dots"></span></a>
-            <ul class="dropdown-menu animated fadeIn" role="menu">
-              <li><a href="index-layout1.html">Desktop PCs</a></li>
-              <li><a href="index-layout2.html">Home Entertainement</a></li>
-              <li><a href="index-layout3.html">Laptops</a></li>
-              <li><a href="index-layout4.html">Mobile</a></li>
-              <li><a href="index-layout5.html">Mobile Accessories</a></li>
-              <li><a href="index-layout6.html">Smart Wearables Tech</a></li>
-            </ul>
-          </li>
-          <li> <a href="index.html" class="dropdown-toggle"><span class="link-name">FURNITURE</span><span class="caret caret--dots"></span></a>
-            <ul class="dropdown-menu animated fadeIn" role="menu">
-              <li><a href="index-layout1.html">Furnishing</a></li>
-              <li><a href="index-layout2.html">furniture</a></li>
-              <li><a href="index-layout3.html">Kitchen & Dining</a></li>
-              <li><a href="index-layout4.html">Kitchen Storage</a></li>
-              <li><a href="index-layout5.html">Lightning</a></li>
-              <li><a href="index-layout6.html">Wall Decals & Stickers</a></li>
-            </ul>
-          </li>
-          <li> <a href="index.html" class="dropdown-toggle"><span class="link-name">MEN</span><span class="caret caret--dots"></span></a>
-            <ul class="dropdown-menu animated fadeIn" role="menu">
-              <li><a href="index-layout1.html">Accessories</a></li>
-              <li><a href="index-layout2.html">Bottom Wear</a></li>
-              <li><a href="index-layout3.html">Footwear</a></li>
-              <li><a href="index-layout4.html">Kitchen Storage</a></li>
-              <li><a href="index-layout5.html">Men's Grooming</a></li>
-              <li><a href="index-layout6.html">Sports Wear</a></li>
-              <li><a href="index-layout6.html">Top Wear</a></li>
-              <li><a href="index-layout6.html">Watches</a></li>
-            </ul>
-          </li>
-          <li> <a href="index.html" class="dropdown-toggle"><span class="link-name">WOMEN</span><span class="caret caret--dots"></span></a>
-            <ul class="dropdown-menu animated fadeIn" role="menu">
-              <li><a href="index-layout1.html">Accessories</a></li>
-              <li><a href="index-layout2.html">Beauty & Grooming</a></li>
-              <li><a href="index-layout3.html">Ethnic Wear</a></li>
-              <li><a href="index-layout4.html">Foot Wear</a></li>
-              <li><a href="index-layout5.html">Jewellery</a></li>
-              <li><a href="index-layout6.html">Sports Wear</a></li>
-              <li><a href="index-layout6.html">Western Wear</a></li>
-            </ul>
-          </li>
+       <% for(var i = 0;i < subcateg.length-1;i++) { %>
+         <% if(i==0 || (subcateg[i].category!=subcateg[i+1].category)) {%> 
+           <% if (i!=0) {%></ul> <%}%>
+           <li> <a href="index" class="dropdown-toggle"><span class="link-name"> <%=subcateg[i].category%></span><span class="caret caret--dots"></span></a>
+           <ul class="dropdown-menu animated fadeIn" role="menu">         
+         <%}%>
+         <li><a href="index-layout1.html"><%=subcateg[i].subcategory%></a></li>
+         </li>
+       <% } %>
         </ul>
       </div>
     </div>

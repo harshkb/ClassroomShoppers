@@ -154,14 +154,47 @@ home.all(function(req,res,next){
 //get data to update
 home.get(function(req,res,next){
 
-    var user_id = req.params.user_id;
-    res.render('index');
+    // var user_id = req.params.user_id;
+     // res.render('header',);
 
-    req.getConnection(function(err,conn){
+     req.getConnection(function(err,conn){
 
-        if (err) return next("Cannot Connect");
+    //     if (err) return next("Cannot Connect");
 
-        var query = conn.query("SELECT * FROM t_user WHERE user_id = ? ",[user_id],function(err,rows){
+    //     var query = conn.query("SELECT * FROM t_user WHERE user_id = ? ",[user_id],function(err,rows){
+
+    //         if(err){
+    //             console.log(err);
+    //             return next("Mysql error, check your query");
+    //         }
+
+    //         //if user not found
+    //         if(rows.length < 1)
+    //             return res.send("User Not found");
+
+    //         res.render('edit',{title:"Edit user",data:rows});
+    //     });
+
+        // var categ = conn.query("SELECT DISTINCT category FROM category",function(err,rows){
+
+        //     if(err){
+        //         console.log(err);
+        //         return next("Mysql error, check your query");
+        //     }
+
+        //     //if user not found
+        //     if(rows.length < 1)
+        //         return res.send("User Not found");
+
+
+
+
+
+        //     res.render('header',{title:"category name",categ:rows, });
+            
+        // });
+
+        var subcateg = conn.query("SELECT category,subcategory FROM category ORDER BY category",function(err,rows){
 
             if(err){
                 console.log(err);
@@ -172,12 +205,13 @@ home.get(function(req,res,next){
             if(rows.length < 1)
                 return res.send("User Not found");
 
-            res.render('edit',{title:"Edit user",data:rows});
+            res.render('index',{title:"subcategory name",subcateg:rows});
+            
         });
 
     });
-
 });
+
 
 // //update data
 // home.put(function(req,res,next){
