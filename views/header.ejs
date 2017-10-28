@@ -95,15 +95,19 @@
       <div class="pull-left search-focus-fade" id="slidemenu">
         <div class="slidemenu-close visible-xs">✕</div>
         <ul class="nav navbar-nav">
-       <% for(var i = 0;i < subcateg.length-1;i++) { %>
-         <% if(i==0 || (subcateg[i].category!=subcateg[i+1].category)) {%> 
-           <% if (i!=0) {%></ul> <%}%>
-           <li> <a href="index" class="dropdown-toggle"><span class="link-name"> <%=subcateg[i].category%></span><span class="caret caret--dots"></span></a>
-           <ul class="dropdown-menu animated fadeIn" role="menu">         
-         <%}%>
-         <li><a href="index-layout1.html"><%=subcateg[i].subcategory%></a></li>
-         </li>
-       <% } %>
+          <% if(categ.length){%>
+            <% for(var i = 0;i < categ.length;i++) { %>
+              <li> <a href="/index" class="dropdown-toggle"><span class="link-name"> <%=categ[i].categoryName%></span><span onclick = "roll(<%=categ[i].categoryName%>)" class="caret caret--dots"></span></a>
+                <ul class="dropdown-menu animated fadeIn" role="menu" > 
+                  <% for(var j = 0;j < subcateg.length;j++) { %>  
+                    <% if(subcateg[j].Category_id==categ[i].Category_id){%>       
+                          <li><a href="/<%=categ[i].Category_id%>/<%=subcateg[j].Subcategory_id%>"><%=subcateg[j].subCategoryName%></a></li>
+                    <%}%>
+                  <%}%>
+                </ul> 
+              </li>
+            <%} %>
+          <%}%>  
         </ul>
       </div>
     </div>
@@ -123,5 +127,4 @@
     document.getElementById("myAcc").innerHTML = '';
     document.getElementById("userDetail").innerHTML = '<li class="user-links__item"><a href="/create-account/">Sign Up</a></li><li  class="user-links__item user-links__item--separate"><a href="/login-account">LOGIN</a></li>';
   }
-
 </script>

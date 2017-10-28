@@ -69,7 +69,7 @@
 								</ul>
 							</div>
 							<div class="category-outer__text">
-								<h2 class="category-outer__text__title text-uppercase">Women</h2>
+								<h2 class="category-outer__text__title text-uppercase"><%=subk[0].subCategoryName%></h2>
 								<p>Fusce eu dui. Integer vel nibh sit amet turpis vulputate aliquet. Phasellus id nisi vitae odio pretium aliquam. Pellentesque a leo. Donec consequat lectus sed felis. Quisque vestibulum massa. Nulla ornare. Nulla libero. Donec et mi eu massa ultrices scelerisque. Nullam ac nisi non eros gravida venenatis. Ut euismod, turpis sollicitudin lobortis pellentesque, libero massa dapibus dui, eu dictum justo urna et mi. Integer dictum est vitae sem.</p>
 							</div>
 						</div>
@@ -83,98 +83,12 @@
 								<div class="product-category__hover caption"></div>
 								<div class="product-category__info">
 									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">DRESSES</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-07.jpg" alt="#"></a>
-								<div class="product-category__hover caption"></div>
-								<div class="product-category__info">
-									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">JACKETS</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-08.jpg" alt="#"></a>
-								<div class="product-category__hover caption"></div>
-								<div class="product-category__info">
-									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">SHIRTS</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-09.jpg" alt="#"></a>
-								<div class="product-category__hover caption"></div>
-								<div class="product-category__info">
-									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">COATS</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-10.jpg" alt="#"></a>
-								<div class="product-category__hover caption"></div>
-								<div class="product-category__info">
-									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">SHORTS</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-11.jpg" alt="#"></a>
-								<div class="product-category__hover caption"></div>
-								<div class="product-category__info">
-									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">JEANS</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-12.jpg" alt="#"></a>
-								<div class="product-category__hover caption"></div>
-								<div class="product-category__info">
-									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">SKIRTS</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-13.jpg" alt="#"></a>
-								<div class="product-category__hover caption"></div>
-								<div class="product-category__info">
-									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">LINGERIE</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-14.jpg" alt="#"></a>
-								<div class="product-category__hover caption"></div>
-								<div class="product-category__info">
-									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">BEACHWEAR</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
-									</div>
-								</div>
-							</div>
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-15.jpg" alt="#"></a>
-								<div class="product-category__hover caption"></div>
-								<div class="product-category__info">
-									<div class="product-category__info__ribbon">
-										<h5 class="product-category__info__ribbon__title">SHOES</h5>
-										<div class="product-category__info__ribbon__count">32 products</div>
+										<% if(listin.length){ 
+        									for(var i = 0;i < listin.length;i++) { %>
+												<h5 class="product-category__info__ribbon__title"><%=listin[i].productName%></h5>
+												<div class="product-category__info__ribbon__count"><%=listin[i].stock%></div>
+										<% } %>	
+										<% } %>	
 									</div>
 								</div>
 							</div>

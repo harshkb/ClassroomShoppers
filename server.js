@@ -23,7 +23,8 @@ app.use(
         host     : 'localhost',
         user     : 'root',
         password : 'root',
-        database : 'classroomshoppers',
+        database : 'newDatabase',
+        multipleStatements: true,
         debug    : false //set true if you wanna see debug logger
     },'request')
 );
@@ -159,59 +160,90 @@ home.get(function(req,res,next){
 
      req.getConnection(function(err,conn){
 
-    //     if (err) return next("Cannot Connect");
-
-    //     var query = conn.query("SELECT * FROM t_user WHERE user_id = ? ",[user_id],function(err,rows){
-
-    //         if(err){
-    //             console.log(err);
-    //             return next("Mysql error, check your query");
-    //         }
-
-    //         //if user not found
-    //         if(rows.length < 1)
-    //             return res.send("User Not found");
-
-    //         res.render('edit',{title:"Edit user",data:rows});
-    //     });
-
-        // var categ = conn.query("SELECT DISTINCT category FROM category",function(err,rows){
-
-        //     if(err){
-        //         console.log(err);
-        //         return next("Mysql error, check your query");
-        //     }
-
-        //     //if user not found
-        //     if(rows.length < 1)
-        //         return res.send("User Not found");
-
-
-
-
-
-        //     res.render('header',{title:"category name",categ:rows, });
-            
-        // });
-
-        var subcateg = conn.query("SELECT category,subcategory FROM category ORDER BY category",function(err,rows){
-
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category",function(err,rows){
             if(err){
                 console.log(err);
                 return next("Mysql error, check your query");
             }
 
             //if user not found
-            if(rows.length < 1)
-                return res.send("User Not found");
+           
+            console.log(rows[0],rows[1]);
+            res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1]});
 
-            res.render('index',{title:"subcategory name",subcateg:rows});
-            
-        });
+          });
 
     });
 });
 
+
+// var subcategory= router.route('/:Category_id');
+
+// subcategory.all(function(req,res,next){
+//     console.log("You need to smth about home Route ? Do it here");
+//     console.log(req.params);
+//     next();
+// });
+
+//get data to update
+// subcategory.get(function(req,res,next){
+
+//      var Category_id = req.params.Category_id;
+//      // res.render('header',);
+
+//      req.getConnection(function(err,conn){
+
+//         var subcateg = conn.query("SELECT Subcategory_id,subCategoryName FROM Sub_Category where Category_id = ? ",[Category_id],function(err,rows){
+//             if(err){
+//                 console.log(err);
+//                 return next("Mysql error, check your query");
+//             }
+
+//             //if user not found
+//             if(rows.length < 1)
+//                 return res.send("User Not found");
+
+//             res.render('index',{title:"subcategory name",subcateg:rows});
+            
+//         });
+
+//     });
+// });
+
+
+var list = router.route('/:category/:subcategory');
+
+list.all(function(req,res,next){
+    console.log("You need to smth about list Route ? Do it here");
+    console.log(req.params);
+    next();
+});
+//show the CRUD interface | GET
+list.get(function(req,res,next){
+
+var category = req.params.category;
+var subcategory = req.params.subcategory;
+
+    req.getConnection(function(err,conn){
+
+        if (err) return next("Cannot Connect");
+
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName,product_id,subCategoryName,stock FROM Product NATURAL JOIN Sub_Category WHERE Category_id= ? and subCategory_id= ?;Select subCategoryName from Sub_Category WHERE subCategory_id = ? AND Category_id = ? ",[category,subcategory,subcategory,category],function(err,rows){
+          console.log("vjhdfvsdvdsvs",rows[3]);
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            if(rows[2].length < 1)
+                return  res.render('listing-empty-category',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],subv:rows[3]});
+              else{ 
+            res.render('listing',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],listin:rows[2],subk:rows[3]});}
+         });
+
+    });
+
+});
 
 // //update data
 // home.put(function(req,res,next){
