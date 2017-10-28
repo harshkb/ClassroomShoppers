@@ -241,6 +241,38 @@ var subcategory = req.params.subcategory;
             res.render('listing',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],listin:rows[2],subk:rows[3]});}
          });
 
+        var cart = conn.query("SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id ="anujainbhav@gmail.com" ",function(err,rows){
+
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('index',{title:"cart details",cart:rows});
+            
+        });
+
+        var cart_total = conn.query("SELECT sum (newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id ="anujainbhav@gmail.com" ",function(err,rows){
+
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('index',{title:"cart total",cart_total:rows});
+            
+        });
+
+
+
     });
 
 });
