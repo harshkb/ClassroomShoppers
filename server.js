@@ -22,8 +22,9 @@ app.use(
     connection(mysql,{
         host     : 'localhost',
         user     : 'root',
-        password : 'root',
+        password : 'hello',
         database : 'classroomshoppers',
+        multipleStatements : true,
         debug    : false //set true if you wanna see debug logger
     },'request')
 );
@@ -47,13 +48,9 @@ app.get('/sitemap',function(req,res){
     res.render('sitemap');
 });
 
- app.get('/account-address',function(req,res){
-    res.render('account-address');
-});
 
-app.get('/account-order',function(req,res){
-    res.render('account-order');
-});
+
+
 
 app.get('/checkout',function(req,res){
     res.render('checkout');
@@ -63,13 +60,8 @@ app.get('/contact',function(req,res){
     res.render('contact');
 });
 
-app.get('/create-account',function(req,res){
-    res.render('create-account');
-});
 
-app.get('/edit',function(req,res){
-    res.render('edit');
-});
+
 
 app.get('/footer',function(req,res){
     res.render('footer');
@@ -79,9 +71,7 @@ app.get('/header',function(req,res){
     res.render('header');
 });
 
-app.get('/index',function(req,res){
-    res.render('index');
-});
+
 
 app.get('/listing',function(req,res){
     res.render('listing');
@@ -91,9 +81,7 @@ app.get('/listing-empty-category',function(req,res){
     res.render('listing-empty-category');
 });
 
-app.get('/login-account',function(req,res){
-    res.render('login-account');
-});
+
 
 app.get('/product-layout4',function(req,res){
     res.render('product-layout4');
@@ -107,17 +95,20 @@ app.get('/shopping-cart-empty',function(req,res){
     res.render('shopping-cart-empty');
 });
 
-app.get('/shopping-cart-right-column',function(req,res){
-    res.render('shopping-cart-right-column');
-});
 
-app.get('/user',function(req,res){
-    res.render('user');
-});
 
 app.get('/wishlist',function(req,res){
     res.render('wishlist');
 });
+
+app.get('/process-contact',function(req,res){
+    res.render('process-contact');
+});
+
+app.get('/process-subscribe',function(req,res){
+    res.render('process-subscribe');
+});
+
 // ------------------------------------------------------------
 
 //RESTful route
@@ -154,95 +145,149 @@ home.all(function(req,res,next){
 //get data to update
 home.get(function(req,res,next){
 
-    // var user_id = req.params.user_id;
-     // res.render('header',);
+    var user_id = req.params.user_id;
+    res.render('index');
 
-     req.getConnection(function(err,conn){
+    
 
-    //     if (err) return next("Cannot Connect");
-
-    //     var query = conn.query("SELECT * FROM t_user WHERE user_id = ? ",[user_id],function(err,rows){
-
-    //         if(err){
-    //             console.log(err);
-    //             return next("Mysql error, check your query");
-    //         }
-
-    //         //if user not found
-    //         if(rows.length < 1)
-    //             return res.send("User Not found");
-
-    //         res.render('edit',{title:"Edit user",data:rows});
-    //     });
-
-        // var categ = conn.query("SELECT DISTINCT category FROM category",function(err,rows){
-
-        //     if(err){
-        //         console.log(err);
-        //         return next("Mysql error, check your query");
-        //     }
-
-        //     //if user not found
-        //     if(rows.length < 1)
-        //         return res.send("User Not found");
-
-
-
-
-
-        //     res.render('header',{title:"category name",categ:rows, });
-            
-        // });
-
-        var subcateg = conn.query("SELECT category,subcategory FROM category ORDER BY category",function(err,rows){
-
-            if(err){
-                console.log(err);
-                return next("Mysql error, check your query");
-            }
-
-            //if user not found
-            if(rows.length < 1)
-                return res.send("User Not found");
-
-            res.render('index',{title:"subcategory name",subcateg:rows});
-            
-        });
-
-        var cart = conn.query("SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id ="anujainbhav@gmail.com" ",function(err,rows){
-
-            if(err){
-                console.log(err);
-                return next("Mysql error, check your query");
-            }
-
-            //if user not found
-            if(rows.length < 1)
-                return res.send("User Not found");
-
-            res.render('index',{title:"cart details",cart:rows});
-            
-        });
-
-        var cart_total = conn.query("SELECT sum (newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id ="anujainbhav@gmail.com" ",function(err,rows){
-
-            if(err){
-                console.log(err);
-                return next("Mysql error, check your query");
-            }
-
-            //if user not found
-            if(rows.length < 1)
-                return res.send("User Not found");
-
-            res.render('index',{title:"cart total",cart_total:rows});
-            
-        });
-
-
-
-    });
 });
+
+
+var vorder = router.route('/account-order/:user_id');
+
+
+
+//get data to update
+vorder.get(
+  function(req,res,next)
+  {
+
+    var user_id = req.params.user_id;
+    
+
+    req.getConnection(
+      function(err,conn)
+      {
+
+        if (err) return next("Cannot Connect");
+
+        var order = conn.query("SELECT order_no, timeStamp, status, newPrice FROM Orders natural join Product WHERE Order.email_id = <%=user_id%>; SELECT firstName, second_name, email_id, contact FROM USER WHERE email_id = <%=user_id%>",function(err,rows)
+        {
+
+            if(err)
+            {
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('account-order',{title:"order details",order:rows[0],user:rows[1]});
+            
+            
+        });
+        
+        
+        
+        
+      });
+      
+  });
+
+var vaddress = router.route('/account-address/:user_id');
+
+
+
+//get data to update
+vaddress.get(
+  function(req,res,next)
+  {
+
+    var user_id = req.params.user_id;
+    
+
+    req.getConnection(
+      function(err,conn)
+      {
+
+        if (err) return next("Cannot Connect");
+
+        var order = conn.query("SELECT address, isdefault FROM Shipping WHERE email_id = <%=user_id%>; SELECT firstName, second_name, email_id, contact FROM USER WHERE email_id = <%=user_id%>",function(err,rows)
+        {
+
+            if(err)
+            {
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('account-order',{title:"order details",address:rows[0],user:rows[1]});
+            
+            
+        });
+        
+        
+        
+        
+      });
+      
+  });
+
+
+
+
+var vcart = router.route('/shopping-cart-right-column/:user_id');
+
+
+
+//get data to update
+vcart.get(
+  function(req,res,next)
+  {
+
+    var user_id = req.params.user_id;
+    
+
+    req.getConnection(
+      function(err,conn)
+      {
+
+        if (err) return next("Cannot Connect");
+
+        var cart = conn.query("SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = <%=user_id%>;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = <%=user_id%>  ",function(err,rows)
+        {
+
+            if(err)
+            {
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('shopping-cart-right-column',{title:"cart details",cart:rows[0],cart_total:rows[1]});
+            
+            
+        });
+        
+        
+        
+        
+      });
+      
+  });
+
+
+
+
 
 
 // //update data
@@ -587,7 +632,7 @@ loginAcc.put(function(req,res,next){
 app.use(router);
 
 //start Server
-var server = app.listen(3000,function(){
+var server = app.listen(3002,function(){
 
    console.log("Listening to port %s",server.address().port);
 

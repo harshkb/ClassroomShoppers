@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,7 +85,7 @@
                 </thead>
             <tbody>
 
-                     <% for(var i = 0;i < cart.length-1;i++) { %>
+                     <% for(var i = 0;i < cart.length;i++) { %>
          
 
               <tr>
@@ -92,14 +93,14 @@
                   <a class="icon-clear shopping-cart-table__delete" href="#"></a></td>
                 <td class="no-title"><div class="shopping-cart-table__product-image"><a href="product.html"><img src=<%=cart[i].smallImage%> alt=""/></a></div></td>
                 <td><div class="th-title visible-xs">Product Name:</div>
-                  <h6 class="shopping-cart-table__product-name text-left text-uppercase"><a href="product.html">cart[i].productName</a></h6>
+                  <h6 class="shopping-cart-table__product-name text-left text-uppercase"><a href="product.html"><%=cart[i].productName%></a></h6>
                   <div class="shopping-cart-table__product-color text-left">
-					<ul class="options-swatch options-swatch--color">
-					  <li><a href="#"><span class="swatch-label"><img src="/../images/colors/red.png" width="10" height="10" alt=""/></span></a></li>
-					</ul>
-				  </div></td>
+          <ul class="options-swatch options-swatch--color">
+            <li><a href="#"><span class="swatch-label"><img src="/../images/colors/red.png" width="10" height="10" alt=""/></span></a></li>
+          </ul>
+          </div></td>
                 <td><div class="th-title visible-xs">Unit Price:</div>
-                  <div class="shopping-cart-table__product-price">cart[i].newPrice</div></td>
+                  <div class="shopping-cart-table__product-price"><%=cart[i].newPrice%></div></td>
                 <td><div class="th-title visible-xs">QTY:</div>
                   <div class="input-group-qty"> <span class="pull-left"> </span>
                     <input type="text" name="quant[1]" class="input-number input--wd input-qty pull-left" value=<%=cart[i].quantity%> min="1" max="100">
@@ -109,9 +110,9 @@
                     </span> </div>
                   <a class="icon-pencil shopping-cart-table__delete" href="#"></a></td>
                 <td><div class="th-title visible-xs">Subtotal:</div>
-                  <div class="shopping-cart-table__product-price">cart[i].subtotal</div></td>
+                  <div class="shopping-cart-table__product-price"><%=cart[i].subtotal%></div></td>
               </tr>
-			        
+              
               <% } %>
 
 
@@ -133,7 +134,7 @@
             <div class="card card--collapse">
               <h4 class="h-pad-sm card-title">DISCOUNT CODES</h4>
               <div class="card-content">
-				<p>Enter your coupon code if you have one.</p>
+        <p>Enter your coupon code if you have one.</p>
                 <input type="text" class="input--wd input--wd--full">
                 <div class="divider divider--xs"></div>
                 <button type="submit" class="btn btn--wd text-uppercase wave waves-effect">Apply Coupon</button>
@@ -197,7 +198,7 @@
               <input type="text" class="input--wd input--wd--full" placeholder="Zip/Postal Code">
               <div class="divider divider--xs"></div>
               <button type="submit" class="btn btn--wd text-uppercase wave waves-effect">Get a Quote</button>
-			  </div>
+        </div>
             </div>
             <div class="divider divider--xs"></div>
             <h4 class="h-pad-sm">CART TOTALS</h4>
@@ -206,7 +207,7 @@
                 
                 <tr>
                   <td class="text-left"><h2>Grand Total</h2></td>
-                  <td class="text-right"><h2>cart_total[0]</h2></td>
+                  <td class="text-right"><h2><%=cart_total[0].total%></h2></td>
                 </tr>
               </tbody>
             </table>
