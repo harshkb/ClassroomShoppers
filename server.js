@@ -177,6 +177,47 @@ home.get(function(req,res,next){
 });
 
 
+var test = router.route('/djvj');
+
+/*------------------------------------------------------
+route.all is extremely useful. you can use it to do
+stuffs for specific routes. for example you need to do
+a validation everytime route /api/user/:user_id it hit.
+
+remove curut2.all() if you dont want it
+------------------------------------------------------*/
+
+test.all(function(req,res,next){
+    console.log("You need to smth about home Route ? Do it here");
+    console.log(req.params);
+    next();
+});
+
+//get data to update
+test.get(function(req,res,next){
+
+    // var user_id = req.params.user_id;
+     // res.render('header',);
+
+     req.getConnection(function(err,conn){
+
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category",function(err,rows){
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+           console.log("test passed");
+            
+            res.render('index',{title:"subcategory name"});
+
+          });
+
+    });
+});
+
+
 // var subcategory= router.route('/:Category_id');
 
 // subcategory.all(function(req,res,next){
