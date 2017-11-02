@@ -446,13 +446,10 @@ loginAcc.put(function(req,res,next){
         console.log(err);
         return next("Cannot Connect");
       }
-<<<<<<< HEAD
-      
-      var query = conn.query("SELECT name FROM classroomshoppers.userdetail WHERE emailId = '"+emailId+"' and password = '"+password+"' ", function(err,rows){
-=======
+
 
       var query = conn.query("SELECT name FROM newDatabase.USER WHERE email_id = '"+email_id+"' and password = '"+password+"' ", function(err,rows){
->>>>>>> f9d980d6d77fe5c67cce81e190203f0aaa9177a3
+
           if(err){
             console.log(err);
               return next("Mysql error, check your query");
