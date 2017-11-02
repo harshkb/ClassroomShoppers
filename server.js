@@ -507,7 +507,8 @@ createAcc.post(function(req,res,next){
         email_id:req.body.emailId,
         firstName:req.body.firstName,
         second_name:req.body.lastName,
-        password:req.body.password
+        password:req.body.password,
+	contactNo:null
      };
 
     //inserting into mysql

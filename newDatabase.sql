@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.28, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: newclassshopper
+-- Host: localhost    Database: newDatabase
 -- ------------------------------------------------------
--- Server version	5.7.20-0ubuntu0.16.04.1
+-- Server version	5.6.28-0ubuntu0.15.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -258,6 +258,7 @@ CREATE TABLE `Shipping` (
   `address_id` int(11) NOT NULL,
   `address` varchar(200) NOT NULL,
   `pincode` int(11) NOT NULL,
+  `isdefault` bit(1) DEFAULT NULL,
   PRIMARY KEY (`email_id`,`address_id`),
   CONSTRAINT `Shipping_ibfk_1` FOREIGN KEY (`email_id`) REFERENCES `USER` (`email_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -296,6 +297,7 @@ CREATE TABLE `Sub_Category` (
 
 LOCK TABLES `Sub_Category` WRITE;
 /*!40000 ALTER TABLE `Sub_Category` DISABLE KEYS */;
+INSERT INTO `Sub_Category` VALUES (1,1,'jhh',2,0),(1,2,'jha',2,0),(2,1,'jhk',2,0),(2,2,'jh9',2,0),(3,1,'jdfc',2,0),(3,2,'jdcsa',2,0);
 /*!40000 ALTER TABLE `Sub_Category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +314,7 @@ CREATE TABLE `USER` (
   `second_name` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
   `isSubscribed` tinyint(1) DEFAULT '0',
-  `contactNo` int(11) NOT NULL,
+  `contactNo` int(11) DEFAULT NULL,
   PRIMARY KEY (`email_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -323,6 +325,7 @@ CREATE TABLE `USER` (
 
 LOCK TABLES `USER` WRITE;
 /*!40000 ALTER TABLE `USER` DISABLE KEYS */;
+INSERT INTO `USER` VALUES ('amrityavagmi@gmail.com','amritya','yagni','amritya123',0,NULL),('asd@asd.com','dsasda','asda','abcabc',0,NULL),('hkbansal1995@gmail.com','ckd','cjna','harsh123',0,NULL),('hkbansal1997','harsh','bansal','harshkb',0,NULL),('hkbansal1997@gmail.com','harsh','bansal','harshkb',0,NULL),('jcbn@fmks.com','casca','scac','harsh123',0,NULL);
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,6 +376,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (1,'Appliances',0),(2,'harsh',0),(3,'him',0);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -385,4 +389,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-28 12:57:04
+-- Dump completed on 2017-11-02 19:15:58
