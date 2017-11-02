@@ -439,7 +439,7 @@ loginAcc.put(function(req,res,next){
         console.log(err);
         return next("Cannot Connect");
       }
-
+      
       var query = conn.query("SELECT name FROM classroomshoppers.userdetail WHERE emailId = '"+emailId+"' and password = '"+password+"' ", function(err,rows){
           if(err){
             console.log(err);
