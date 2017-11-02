@@ -84,6 +84,7 @@
                 </tr>
               </thead>
               <tbody>
+              <% if(order.length) { %>
                 <% for(var i = 0;i < order.length;i++) { %>
                 <tr>
                   <td><div class="th-title visible-xs">Order</div><a href="#"><%=order[i].order_no%></a></td>
@@ -91,6 +92,7 @@
                   <td><div class="th-title visible-xs">Payment Status</div><%=order[i].status%></td>
                   <td><div class="th-title visible-xs">Total</div><%=order[i].newPrice%></td>
                 </tr>
+                <% } %>
                 <% } %>
               </tbody>
             </table>
@@ -101,15 +103,15 @@
               <tbody>
                 <tr>
                   <td>Name:</td>
-                  <td><strong><%=user[0].firstName%> <%=user[0].second_name%></strong></td>
+                  <td><strong><%=(typeof(user[0]) == "undefined" ? " " : user[0].firstName )%> <%= (typeof(user[0]) == "undefined" ? " " :  user[0].second_name )%></strong></td>
                 </tr>
                 <tr>
                   <td>E-mail:</td>
-                  <td><a href="mailto:alexsmith@hotmail.com"><strong><%=user[0].email_id%></strong></a></td>
+                  <td><a href="mailto:alexsmith@hotmail.com"><strong><%= (typeof(user[0]) == "undefined" ? " " :user[0].email_id)%></strong></a></td>
                 </tr>
                 <tr>
                   <td>Phone:</td>
-                  <td><strong><%=user[0].contactNo%></strong></td>
+                  <td><strong><%= (typeof(user[0]) == "undefined" ? " " :user[0].contactNo)%></strong></td>
                 </tr>
               </tbody>
             </table>
