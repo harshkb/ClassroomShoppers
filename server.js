@@ -385,11 +385,18 @@ createAcc.post(function(req,res,next){
         res.status(422).json(errors);
         return;
     }
+     req.assert('confirmPassword','Incorrect Password').matches(/^req.body.password&/);
+    var errors = req.validationErrors();
+    if(errors){
+        res.status(422).json(errors);
+        return;
+    }
 
     //get data
     var data = {
-        name:req.body.firstName+req.body.lastName,
-        emailId:req.body.emailId,
+        email_id:req.body.emailId,
+        firstName:req.body.firstName,
+        second_name:req.body.lastName,
         password:req.body.password
      };
 
@@ -397,7 +404,7 @@ createAcc.post(function(req,res,next){
     req.getConnection(function (err, conn){
         if (err) return next("Cannot Connect");
 
-        var query = conn.query("INSERT INTO classroomshoppers.userdetail set ? ", data, function(err, rows){
+        var query = conn.query("INSERT INTO newDatabase.USER set ? ", data, function(err, rows){
            if(err){
                 console.log(err);
                 return next("Mysql error, check your query");
@@ -431,7 +438,7 @@ loginAcc.put(function(req,res,next){
       return;
   }
 
-  var emailId = req.body.emailId;
+  var email_id = req.body.emailId;
   var password = req.body.password;
 
   req.getConnection(function(err,conn){
@@ -440,7 +447,7 @@ loginAcc.put(function(req,res,next){
         return next("Cannot Connect");
       }
 
-      var query = conn.query("SELECT name FROM classroomshoppers.userdetail WHERE emailId = '"+emailId+"' and password = '"+password+"' ", function(err,rows){
+      var query = conn.query("SELECT name FROM newDatabase.USER WHERE email_id = '"+email_id+"' and password = '"+password+"' ", function(err,rows){
           if(err){
             console.log(err);
               return next("Mysql error, check your query");
@@ -448,7 +455,7 @@ loginAcc.put(function(req,res,next){
           if(rows.length==0)
             res.status(400).json("Invalid emailID - password");
           else
-          res.status(200).json(rows[0].name);
+          res.status(200).json(rows[0].firstName + rows[0].second_name);
        });
   });
 });
