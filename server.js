@@ -22,15 +22,9 @@ app.use(
     connection(mysql,{
         host     : 'localhost',
         user     : 'root',
-<<<<<<< HEAD
         password : 'root',
         database : 'newDatabase',
         multipleStatements: true,
-=======
-        password : 'hello',
-        database : 'classroomshoppers',
-        multipleStatements : true,
->>>>>>> dbms_anubhav
         debug    : false //set true if you wanna see debug logger
     },'request')
 );
@@ -130,7 +124,7 @@ router.use(function(req, res, next) {
 });
 
 
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------
 
 var home = router.route('/');
 
@@ -151,13 +145,13 @@ home.all(function(req,res,next){
 //get data to update
 home.get(function(req,res,next){
 
-<<<<<<< HEAD
+
     // var user_id = req.params.user_id;
      // res.render('header',);
 
      req.getConnection(function(err,conn){
 
-        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category",function(err,rows){
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;",function(err,rows){
             if(err){
                 console.log(err);
                 return next("Mysql error, check your query");
@@ -166,36 +160,26 @@ home.get(function(req,res,next){
             //if user not found
            
             console.log(rows[0],rows[1]);
-            res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1]});
+            res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1],cart:null,cart_total:null,user_id:null});
 
           });
 
     });
 });
+//-----------------------------------------------------------------------------------------------------------------------
 
 
-var test = router.route('/djvj');
-=======
-    var user_id = req.params.user_id;
-    res.render('index');
+//----------------------------------------------------------------------------------------------------------------------
 
-    
+ var test = router.route('/temp/connect/:user_id');
 
-});
+// /*------------------------------------------------------
+// route.all is extremely useful. you can use it to do
+// stuffs for specific routes. for example you need to do
+// a validation everytime route /api/user/:user_id it hit.
 
-
-var vorder = router.route('/account-order/:user_id');
-
->>>>>>> dbms_anubhav
-
-/*------------------------------------------------------
-route.all is extremely useful. you can use it to do
-stuffs for specific routes. for example you need to do
-a validation everytime route /api/user/:user_id it hit.
-
-<<<<<<< HEAD
-remove curut2.all() if you dont want it
-------------------------------------------------------*/
+// remove curut2.all() if you dont want it
+// ------------------------------------------------------*/
 
 test.all(function(req,res,next){
     console.log("You need to smth about home Route ? Do it here");
@@ -203,17 +187,39 @@ test.all(function(req,res,next){
     next();
 });
 
-//get data to update
+// //get data to update
 test.get(function(req,res,next){
 
-    // var user_id = req.params.user_id;
+     var user_id = req.params.user_id;
      // res.render('header',);
 
      req.getConnection(function(err,conn){
 
-        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category",function(err,rows){
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ? ",[user_id,user_id],function(err,rows){
             if(err){
-=======
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+           
+            console.log(rows[0],rows[1],rows[2],rows[3]);
+            res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1],user_id:user_id,cart:rows[2],cart_total:rows[3]});
+
+          });
+
+    });
+});
+
+          
+//--------------------------------------------------------------------------------------------------------
+
+
+
+var vorder = router.route('/account-order/user/:user_id');
+
+
+
 //get data to update
 vorder.get(
   function(req,res,next)
@@ -228,31 +234,20 @@ vorder.get(
 
         if (err) return next("Cannot Connect");
 
-        var order = conn.query("SELECT order_no, timeStamp, status, newPrice FROM Orders natural join Product WHERE Order.email_id = <%=user_id%>; SELECT firstName, second_name, email_id, contact FROM USER WHERE email_id = <%=user_id%>",function(err,rows)
+        var order = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT order_no, timeStamp, status, newPrice FROM Orders natural join Product WHERE Orders.email_id = ?; SELECT firstName, second_name, email_id, contactNo FROM USER WHERE email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ? ",[user_id,user_id,user_id,user_id],function(err,rows)
         {
 
             if(err)
             {
->>>>>>> dbms_anubhav
                 console.log(err);
                 return next("Mysql error, check your query");
             }
 
             //if user not found
-<<<<<<< HEAD
-           console.log("test passed");
-            
-            res.render('index',{title:"subcategory name"});
-
-          });
-
-    });
-});
-=======
             if(rows.length < 1)
                 return res.send("User Not found");
 
-            res.render('account-order',{title:"order details",order:rows[0],user:rows[1]});
+            res.render('account-order',{title:"order details",order:rows[2],user:rows[3],categ:rows[0],subcateg:rows[1],user_id:user_id,cart_total:rows[4],cart:rows[5]});
             
             
         });
@@ -264,7 +259,9 @@ vorder.get(
       
   });
 
-var vaddress = router.route('/account-address/:user_id');
+//---------------------------------------------------------------------------------------------------------------------
+
+var vaddress = router.route('/account-address/user/:user_id');
 
 
 
@@ -282,7 +279,7 @@ vaddress.get(
 
         if (err) return next("Cannot Connect");
 
-        var order = conn.query("SELECT address, isdefault FROM Shipping WHERE email_id = <%=user_id%>; SELECT firstName, second_name, email_id, contact FROM USER WHERE email_id = <%=user_id%>",function(err,rows)
+        var order = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT address, isdefault FROM Shipping WHERE email_id = ? ; SELECT firstName, second_name, email_id, contactNo FROM USER WHERE email_id = ? ;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?",[user_id,user_id,user_id,user_id],function(err,rows)
         {
 
             if(err)
@@ -290,44 +287,74 @@ vaddress.get(
                 console.log(err);
                 return next("Mysql error, check your query");
             }
->>>>>>> dbms_anubhav
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('account-address',{title:"order details",address:rows[2],user:rows[3],categ:rows[0],subcateg:rows[1],cart_total:rows[4],cart:rows[5],user_id:user_id});
+            
+            
+        });
+        
+        
+        
+        
+      });
+      
+  });
+
+//--------------------------------------------------------------------------------------------------------------------
 
 
-<<<<<<< HEAD
-// var subcategory= router.route('/:Category_id');
+var vcart = router.route('/shopping-cart-right-column/user/:user_id');
 
-// subcategory.all(function(req,res,next){
-//     console.log("You need to smth about home Route ? Do it here");
-//     console.log(req.params);
-//     next();
-// });
+vcart.all(function(req,res,next){
+    console.log("You need to smth about home Route ? Do it here");
+    console.log(req.params);
+    next();
+});
 
 //get data to update
-// subcategory.get(function(req,res,next){
+vcart.get(
+  function(req,res,next)
+  {
 
-//      var Category_id = req.params.Category_id;
-//      // res.render('header',);
+    var user_id = req.params.user_id;
+    console.log(user_id);
 
-//      req.getConnection(function(err,conn){
+    req.getConnection(
+      function(err,conn)
+      {
 
-//         var subcateg = conn.query("SELECT Subcategory_id,subCategoryName FROM Sub_Category where Category_id = ? ",[Category_id],function(err,rows){
-//             if(err){
-//                 console.log(err);
-//                 return next("Mysql error, check your query");
-//             }
+        if (err) return next("Cannot Connect");
 
-//             //if user not found
-//             if(rows.length < 1)
-//                 return res.send("User Not found");
+        var cart = conn.query("SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category  ",[user_id,user_id],function(err,rows)
+        {
 
-//             res.render('index',{title:"subcategory name",subcateg:rows});
+            if(err)
+            {
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('shopping-cart-right-column',{title:"cart details",cart:rows[0],cart_total:rows[1],user_id:user_id,categ:rows[2],subcateg:rows[3]});
             
-//         });
+            
+        });
+        
+        
+        
+        
+      });
+      
+  });
 
-//     });
-// });
-
-
+//-------------------------------------------------------------------------------------------------------------------------
 var list = router.route('/:category/:subcategory');
 
 list.all(function(req,res,next){
@@ -346,48 +373,8 @@ var subcategory = req.params.subcategory;
         if (err) return next("Cannot Connect");
 
         var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName,product_id,subCategoryName,stock FROM Product NATURAL JOIN Sub_Category WHERE Category_id= ? and subCategory_id= ?;Select subCategoryName from Sub_Category WHERE subCategory_id = ? AND Category_id = ? ",[category,subcategory,subcategory,category],function(err,rows){
-          console.log("vjhdfvsdvdsvs",rows[3]);
+          
             if(err){
-=======
-            res.render('account-order',{title:"order details",address:rows[0],user:rows[1]});
-            
-            
-        });
-        
-        
-        
-        
-      });
-      
-  });
-
-
-
-
-var vcart = router.route('/shopping-cart-right-column/:user_id');
-
-
-
-//get data to update
-vcart.get(
-  function(req,res,next)
-  {
-
-    var user_id = req.params.user_id;
-    
-
-    req.getConnection(
-      function(err,conn)
-      {
-
-        if (err) return next("Cannot Connect");
-
-        var cart = conn.query("SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = <%=user_id%>;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = <%=user_id%>  ",function(err,rows)
-        {
-
-            if(err)
-            {
->>>>>>> dbms_anubhav
                 console.log(err);
                 return next("Mysql error, check your query");
             }
@@ -395,34 +382,21 @@ vcart.get(
             if(rows[2].length < 1)
                 return  res.render('listing-empty-category',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],subv:rows[3]});
               else{ 
-            res.render('listing',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],listin:rows[2],subk:rows[3]});}
+            res.render('listing',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],listin:rows[2],subk:rows[3],subv:rows[3]});}
          });
 
-<<<<<<< HEAD
+
  
 
 
 
     });
-=======
-            res.render('shopping-cart-right-column',{title:"cart details",cart:rows[0],cart_total:rows[1]});
-            
-            
-        });
-        
-        
-        
-        
-      });
-      
-  });
 
-
-
-
->>>>>>> dbms_anubhav
 
 });
+
+//-------------------------------------------------------------------------------------------------------------
+
 
 // //update data
 // home.put(function(req,res,next){
@@ -521,7 +495,7 @@ createAcc.post(function(req,res,next){
     }
  
 	
-     req.assert('confirmPassword','Password not match').matches(^req.body.password$);
+     req.assert('confirmPassword','Password not match').matches(req.body.password);
     var errors = req.validationErrors();
     if(errors){
         res.status(422).json(errors);
@@ -777,7 +751,7 @@ loginAcc.put(function(req,res,next){
 app.use(router);
 
 //start Server
-var server = app.listen(3002,function(){
+var server = app.listen(3000,function(){
 
    console.log("Listening to port %s",server.address().port);
 

@@ -84,14 +84,12 @@
                   </tr>
                 </thead>
             <tbody>
-
+                  <%if(cart!=null){ %>
                      <% for(var i = 0;i < cart.length;i++) { %>
-         
-
               <tr>
                 <td><div class="th-title visible-xs">Remove From Cart:</div>
                   <a class="icon-clear shopping-cart-table__delete" href="#"></a></td>
-                <td class="no-title"><div class="shopping-cart-table__product-image"><a href="product.html"><img src=<%=cart[i].smallImage%> alt=""/></a></div></td>
+                <td class="no-title"><div class="shopping-cart-table__product-image"><a href="product.html"><img src=/../images/colors/blue.png alt=""/></a></div></td>
                 <td><div class="th-title visible-xs">Product Name:</div>
                   <h6 class="shopping-cart-table__product-name text-left text-uppercase"><a href="product.html"><%=cart[i].productName%></a></h6>
                   <div class="shopping-cart-table__product-color text-left">
@@ -113,6 +111,7 @@
                   <div class="shopping-cart-table__product-price"><%=cart[i].subtotal%></div></td>
               </tr>
               
+              <% } %>
               <% } %>
 
 
@@ -207,7 +206,7 @@
                 
                 <tr>
                   <td class="text-left"><h2>Grand Total</h2></td>
-                  <td class="text-right"><h2><%=cart_total[0].total%></h2></td>
+                  <td class="text-right"><h2><%= cart_total == null ? "0": (cart_total[0].total == null ? "0" :  cart_total[0].total )  %></h2></td>
                 </tr>
               </tbody>
             </table>

@@ -137,8 +137,9 @@
           localStorage.setItem("name", res);
           localStorage.setItem("emailId", $("#emailId").val());
         }
-
-        window.location.href = '/';
+        
+         
+        window.location.href = '/temp/connect/'+$("#emailId").val();
         return false;
       },
       error:function(xhr, status, error){
