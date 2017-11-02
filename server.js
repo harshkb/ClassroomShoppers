@@ -385,7 +385,9 @@ createAcc.post(function(req,res,next){
         res.status(422).json(errors);
         return;
     }
-     req.assert('confirmPassword','Incorrect Password').matches(/^req.body.password&/);
+ 
+	
+     req.assert('confirmPassword','Password not match').matches(^req.body.password$);
     var errors = req.validationErrors();
     if(errors){
         res.status(422).json(errors);
@@ -448,7 +450,7 @@ loginAcc.put(function(req,res,next){
       }
 
 
-      var query = conn.query("SELECT name FROM newDatabase.USER WHERE email_id = '"+email_id+"' and password = '"+password+"' ", function(err,rows){
+      var query = conn.query("SELECT firstName,second_name FROM newDatabase.USER WHERE email_id = '"+email_id+"' and password = '"+password+"' ", function(err,rows){
 
           if(err){
             console.log(err);
