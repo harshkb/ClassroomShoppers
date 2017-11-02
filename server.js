@@ -355,7 +355,7 @@ vcart.get(
   });
 
 //-------------------------------------------------------------------------------------------------------------------------
-var list = router.route('/:category/:subcategory/:user_id');
+var list = router.route('/user/:category/:subcategory/:user_id');
 
 list.all(function(req,res,next){
     console.log("You need to smth about list Route ? Do it here");

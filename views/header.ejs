@@ -92,7 +92,7 @@
                 <ul class="dropdown-menu animated fadeIn" role="menu" > 
                   <% for(var j = 0;j < subcateg.length;j++) { %>  
                     <% if(subcateg[j].Category_id==categ[i].Category_id){%>       
-                          <li><a href="/<%=categ[i].Category_id%>/<%=subcateg[j].Subcategory_id%>/<%=user_id%>"><%=subcateg[j].subCategoryName%></a></li>
+                          <li><a href="/user/<%=categ[i].Category_id%>/<%=subcateg[j].Subcategory_id%>/<%=user_id%>"><%=subcateg[j].subCategoryName%></a></li>
                     <%}%>
                   <%}%>
                 </ul> 
