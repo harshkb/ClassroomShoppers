@@ -76,25 +76,26 @@
             <p>&lt;&nbsp; <a href="#">Return to account page</a></p>
           </div>
           <div class="card__row-line">
-            <h4 class="text-uppercase h-pad-xs">2177 Pride AvenueBrooklyn (DEFAULT ADDRESS)</h4>
+            
+            <% for(var i = 0;i < addressq.length;i++) { %>
+            
+            <h4 class="text-uppercase h-pad-xs"><%+addressq[i].address%> <%+addressq[i].isdefault%></h4>
+            
+            <% } %>
+
             <table class="table-address">
               <tbody>
                 <tr>
                   <td>Name:</td>
-                  <td><strong>Alex Smith</strong></td>
+                  <td><strong><%=user[0].firstName%> <%=user[0].second_name%></strong></td>
                 </tr>
                 <tr>
                   <td>E-mail:</td>
-                  <td><a href="mailto:alexsmith@hotmail.com"><strong>alexsmith@hotmail.com</strong></a></td>
-                </tr>
-                <tr>
-                  <td>Address:</td>
-                  <td><strong>2177 Pride AvenueBrooklyn, <br>
-                    NY 11206</strong></td>
+                  <td><a href="mailto:alexsmith@hotmail.com"><strong><%=user[0].email_id%></strong></a></td>
                 </tr>
                 <tr>
                   <td>Phone:</td>
-                  <td><strong>718-387-4726</strong></td>
+                  <td><strong><%=user[0].contact%></strong></td>
                 </tr>
               </tbody>
             </table>

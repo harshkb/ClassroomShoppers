@@ -80,18 +80,18 @@
                   <th>Order</th>
                   <th>Date</th>
                   <th>Payment Status</th>
-                  <th>Fulfillment Status</th>
                   <th>Total</th>
                 </tr>
               </thead>
               <tbody>
+                <% for(var i = 0;i < order.length;i++) { %>
                 <tr>
-                  <td><div class="th-title visible-xs">Order</div><a href="#">#1021</a></td>
-                  <td><div class="th-title visible-xs">Date</div>15 Sep 15:31</td>
-                  <td><div class="th-title visible-xs">Payment Status</div>Pending</td>
-                  <td><div class="th-title visible-xs">Fulfillment Status</div>Unfulfilled</td>
-                  <td><div class="th-title visible-xs">Total</div>$708.00</td>
+                  <td><div class="th-title visible-xs">Order</div><a href="#"><%=order[i].order_no%></a></td>
+                  <td><div class="th-title visible-xs">Date</div><%=order[i].timeStamp%></td>
+                  <td><div class="th-title visible-xs">Payment Status</div><%=order[i].status%></td>
+                  <td><div class="th-title visible-xs">Total</div><%=order[i].newPrice%></td>
                 </tr>
+                <% } %>
               </tbody>
             </table>
           </div>
@@ -101,24 +101,19 @@
               <tbody>
                 <tr>
                   <td>Name:</td>
-                  <td><strong>Alex Smith</strong></td>
+                  <td><strong><%=user[0].firstName%> <%=user[0].second_name%></strong></td>
                 </tr>
                 <tr>
                   <td>E-mail:</td>
-                  <td><a href="mailto:alexsmith@hotmail.com"><strong>alexsmith@hotmail.com</strong></a></td>
-                </tr>
-                <tr>
-                  <td>Address:</td>
-                  <td><strong>2177 Pride AvenueBrooklyn, <br>
-                    NY 11206</strong></td>
+                  <td><a href="mailto:alexsmith@hotmail.com"><strong><%=user[0].email_id%></strong></a></td>
                 </tr>
                 <tr>
                   <td>Phone:</td>
-                  <td><strong>718-387-4726</strong></td>
+                  <td><strong><%=user[0].contact%></strong></td>
                 </tr>
               </tbody>
             </table>
-            <a href="#" class="btn btn--wd">View Addresses (1)</a> </div>
+            <a href="#" class="btn btn--wd">View Addresses</a> </div>
         </div>
       </div>
     </section>
