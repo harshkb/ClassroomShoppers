@@ -339,10 +339,11 @@ vcart.get(
             }
 
             //if user not found
-            if(rows.length < 1)
-                return res.send("User Not found");
-
+            if(rows[0].length < 1)
+                return res.render('shopping-cart-empty',{title:"cart details",cart:rows[0],cart_total:rows[1],user_id:user_id,categ:rows[2],subcateg:rows[3]});
+	else{
             res.render('shopping-cart-right-column',{title:"cart details",cart:rows[0],cart_total:rows[1],user_id:user_id,categ:rows[2],subcateg:rows[3]});
+		}
             
             
         });
