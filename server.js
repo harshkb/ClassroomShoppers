@@ -22,7 +22,7 @@ app.use(
     connection(mysql,{
         host     : 'localhost',
         user     : 'root',
-        password : 'root',
+        password : '1234',
         database : 'newDatabase',
         multipleStatements: true,
         debug    : false //set true if you wanna see debug logger
@@ -304,8 +304,54 @@ vaddress.get(
       
   });
 
-//--------------------------------------------------------------------------------------------------------------------
+//------------------------------whishlist--------------------------------------------------------------------------------------
+  var vwish = router.route('/wishlist/user/:user_id');
 
+vwish.all(function(req,res,next){
+    console.log("You need to smth about home Route ? Do it here");
+    console.log(req.params);
+    next();
+});
+//get data to update
+vwish.get(
+  function(req,res,next)
+  {
+
+    var user_id = req.params.user_id;
+    console.log(user_id);
+
+    req.getConnection(
+      function(err,conn)
+      {
+
+
+        if (err) return next("Cannot Connect");
+
+        var wish = conn.query("SELECT productName, newPrice, smallImage FROM based_on_searches natural join Product WHERE based_on_searches.email_id = ?;SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?",[user_id,user_id,user_id],function(err,rows)
+        {
+
+            if(err)
+            {
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('wishlist',{title:"wishlist details",wish:rows[0],user_id:user_id,categ:rows[1],subcateg:rows[2],cart_total:rows[3],cart:rows[4]});
+            
+            
+        });
+        
+        
+        
+        
+      });
+      
+  });
+//------------------------------------------------------
 
 var vcart = router.route('/shopping-cart-right-column/user/:user_id');
 

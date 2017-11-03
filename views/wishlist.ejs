@@ -92,50 +92,20 @@
               </tr>
             </thead>
             <tbody>
+              <% for(var i=0; i<wish.length; i++) { %>
               <tr class="text-center">
                 <td class="no-title image-col text-left"><div class="shopping-cart-table__product-image"><a href="product.html"><img src="/../images/products/product-11.jpg" alt=""/></a></div></td>
                 <td class="text-left"><div class="th-title visible-xs">Product Name:</div>
-                  <h6 class="shopping-cart-table__product-name text-left text-uppercase"><a href="product.html">Mixtape Dress Red </a></h6></td>
+                  <h6 class="shopping-cart-table__product-name text-left text-uppercase"><a href="product.html"><%=wish[i].productName%></a></h6></td>
                 <td><div class="th-title visible-xs">Unit Price:</div>
-                  <div class="shopping-cart-table__product-price">$65.00</div></td>
+                  <div class="shopping-cart-table__product-price"><%=wish[i].newPrice%></div></td>
                 <td><div class="th-title visible-xs">Remove:</div>
                   <a class="icon-clear" href="#"></a></td>
                 <td><div class="th-title visible-xs">Continue:</div>
                   <a class="icon-verification" href="#"></a></td>
               </tr>
-              <tr class="text-center">
-                <td class="no-title image-col text-left"><div class="shopping-cart-table__product-image"><a href="product.html"><img src="/../images/products/product-10.jpg" alt=""/></a></div></td>
-                <td class="text-left"><div class="th-title visible-xs">Product Name:</div>
-                  <h6 class="shopping-cart-table__product-name text-left text-uppercase"><a href="product.html">How We Do Dress Cobalt </a></h6></td>
-                <td><div class="th-title visible-xs">Unit Price:</div>
-                  <div class="shopping-cart-table__product-price">$65.00</div></td>
-                <td><div class="th-title visible-xs">Remove:</div>
-                  <a class="icon-clear" href="#"></a></td>
-                <td><div class="th-title visible-xs">Continue:</div>
-                  <a class="icon-verification" href="#"></a></td>
-              </tr>
-              <tr class="text-center">
-                <td class="no-title image-col text-left"><div class="shopping-cart-table__product-image"><a href="product.html"><img src="/../images/products/product-2.jpg" alt=""/></a></div></td>
-                <td class="text-left"><div class="th-title visible-xs">Product Name:</div>
-                  <h6 class="shopping-cart-table__product-name text-left text-uppercase"><a href="product.html">Electric Soul Skirt</a></h6></td>
-                <td><div class="th-title visible-xs">Unit Price:</div>
-                  <div class="shopping-cart-table__product-price">$65.00</div></td>
-                <td><div class="th-title visible-xs">Remove:</div>
-                  <a class="icon-clear" href="#"></a></td>
-                <td><div class="th-title visible-xs">Continue:</div>
-                  <a class="icon-verification" href="#"></a></td>
-              </tr>
-              <tr class="text-center">
-                <td class="no-title image-col text-left"><div class="shopping-cart-table__product-image"><a href="product.html"><img src="/../images/products/product-8.jpg" alt=""/></a></div></td>
-                <td class="text-left"><div class="th-title visible-xs">Product Name:</div>
-                  <h6 class="shopping-cart-table__product-name text-left text-uppercase"><a href="product.html">Unconditional Dress White</a></h6></td>
-                <td><div class="th-title visible-xs">Unit Price:</div>
-                  <div class="shopping-cart-table__product-price">$65.00</div></td>
-                <td><div class="th-title visible-xs">Remove:</div>
-                  <a class="icon-clear" href="#"></a></td>
-                <td><div class="th-title visible-xs">Continue:</div>
-                  <a class="icon-verification" href="#"></a></td>
-              </tr>
+               <% } %>
+              
             </tbody>
           </table>
         </div>
