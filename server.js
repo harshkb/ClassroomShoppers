@@ -418,7 +418,7 @@ var subcategory = req.params.subcategory;
 
         if (err) return next("Cannot Connect");
 
-        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName,product_id,subCategoryName,stock FROM Product NATURAL JOIN Sub_Category WHERE Category_id= ? and subCategory_id= ?;Select subCategoryName from Sub_Category WHERE subCategory_id = ? AND Category_id = ? ",[category,subcategory,subcategory,category],function(err,rows){
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName,product_id,subCategoryName,stock FROM Product NATURAL JOIN Sub_Category WHERE Category_id= ? and subCategory_id= ?;Select subCategoryName from Sub_Category WHERE subCategory_id = ? AND Category_id = ? ;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ? ",[category,subcategory,subcategory,category,user_id,user_id],function(err,rows){
           
             if(err){
                 console.log(err);
@@ -426,9 +426,9 @@ var subcategory = req.params.subcategory;
             }
 
             if(rows[2].length < 1)
-                return  res.render('listing-empty-category',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],subv:rows[3],cart_total:null,cart:null,user_id:null});
+                return  res.render('listing-empty-category',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],subv:rows[3],cart:rows[4],cart_total:rows[5],user_id:user_id});
               else{ 
-            res.render('listing',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],listin:rows[2],subk:rows[3],subv:rows[3],cart_total:null});}
+            res.render('listing',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],listin:rows[2],subk:rows[3],subv:rows[3],cart:rows[4],cart_total:rows[5],user_id:user_id});}
          });
 
 
