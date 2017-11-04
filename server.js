@@ -22,7 +22,7 @@ app.use(
     connection(mysql,{
         host     : 'localhost',
         user     : 'root',
-        password : '13100144',
+        password : 'root',
         database : 'newDatabase',
         multipleStatements: true,
         debug    : false //set true if you wanna see debug logger
@@ -150,7 +150,7 @@ home.get(function(req,res,next){
      // res.render('header',);
 
      req.getConnection(function(err,conn){
-     	var cart_total=null;
+     	
 
         var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;",function(err,rows){
             if(err){
