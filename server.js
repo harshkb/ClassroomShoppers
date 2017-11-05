@@ -152,7 +152,7 @@ home.get(function(req,res,next){
      req.getConnection(function(err,conn){
      	
 
-        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;",function(err,rows){
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT * FROM IndexProduct NATURAL JOIN Product WHERE type = 'featured product'",function(err,rows){
             if(err){
                 console.log(err);
                 return next("Mysql error, check your query");
@@ -161,7 +161,7 @@ home.get(function(req,res,next){
             //if user not found
            
             console.log(rows[0],rows[1]);
-            res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1],cart:null,cart_total:null,user_id:null});
+            res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1],cart:null,cart_total:null,user_id:null,product:rows[2]});
           	//   res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1]});
 
           });
@@ -197,7 +197,7 @@ test.get(function(req,res,next){
 
      req.getConnection(function(err,conn){
 
-        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ? ",[user_id,user_id],function(err,rows){
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT * FROM IndexProduct NATURAL JOIN Product WHERE type = 'featured product' ",[user_id,user_id],function(err,rows){
             if(err){
                 console.log(err);
                 return next("Mysql error, check your query");
@@ -206,7 +206,7 @@ test.get(function(req,res,next){
             //if user not found
            
             console.log(rows[0],rows[1],rows[2],rows[3]);
-            res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1],user_id:user_id,cart:rows[2],cart_total:rows[3]});
+            res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1],user_id:user_id,cart:rows[2],cart_total:rows[3],product:rows[4]});
 
           });
 
@@ -606,16 +606,50 @@ var subcategory = req.params.subcategory;
             res.render('listing',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],listin:rows[2],subk:rows[3],subv:rows[3],cart:rows[4],cart_total:rows[5],user_id:user_id});}
          });
 
+    });
 
- 
 
+});
+//-------------------------------------------------------------------------------------------------------------------------
+var productLayout = router.route('/product-layout/:product_id/:user_id');
 
+productLayout.all(function(req,res,next){
+    console.log("You need to smth about list Route ? Do it here");
+    console.log(req.params);
+    next();
+});
+//show the CRUD interface | GET
+productLayout.get(function(req,res,next){
+
+var product_id = req.params.product_id;
+var user_id = req.params.user_id;
+
+    req.getConnection(function(err,conn){
+
+               if (err) return next("Cannot Connect");
+
+        var order = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category; SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT * FROM Product WHERE product_id= '"+product_id+"' ",[user_id,user_id],function(err,rows)
+        {
+
+            if(err)
+            {
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('product-layout4',{title:"product-layout4",categ:rows[0],subcateg:rows[1],cart_total:rows[2],cart:rows[3],user_id:user_id,product:rows[4]});
+            
+            
+        });
 
     });
 
 
 });
-
 
 
 

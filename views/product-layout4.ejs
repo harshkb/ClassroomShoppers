@@ -91,8 +91,8 @@
     <section class="breadcrumbs breadcrumbs-boxed">
       <div class="container">
         <ol class="breadcrumb breadcrumb--wd pull-left">
-          <li><a href="#">Home</a></li>
-          <li class="active">iPhoane 6 16 GB Space Gray</li>
+          <li><a href="/">Home</a></li>
+          <li class="active"><%=product[0].productName%></li>
         </ol>
         <ul id="productOther" class="product-other pull-right hidden-xs">
           <li class="product-other__link product-prev"><a href="#">SMART Watch Sport 38mm</a><span class="product-other__link__image"><img src='images/ishop/products/product-4.jpg'/></span></li>
@@ -108,7 +108,7 @@
           <div class="col-sm-6 hidden-xs">
             <div class="product-main-image">
               <div class="product-main-image__item">
-                <img class="product-zoom" src='images/products/product-big-1.jpg' data-zoom-image="/../images/products/product-big-1-zoom.jpg"/>
+                <img class="product-zoom" src='/../images/products/<%=product[0].smallImage%>' data-zoom-image="/../images/products/<%=product[0].smallImage%>"/>
               </div>
               <div class="product-main-image__zoom"></div>
             </div>
@@ -137,10 +137,10 @@
           </div>
           <div class="product-info col-sm-6">
             <div class="product-info__title">
-              <h2>iPhoane 6 16 GB Space Gray</h2>
+              <h2><%=product[0].productName%></h2>
               <div class="rating product-info__rating visible-xs"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
             </div>
-            <div class="product-info__sku pull-right">SKU: 00065 &nbsp;&nbsp;<span class="label label-success">IN STOCK</span></div>
+            <div class="product-info__sku pull-right">SKU: 00065 &nbsp;&nbsp;<span class="label label-success">IN STOCK - <%= product[0].isAvailable == 1 ? "Yes": "No" %></span></div>
             <ul id="singleGallery" class="visible-xs">
               <li><img src="/../images/ishop/products/product-big-1.jpg" alt="" /></li>
               <li><img src="/../images/ishop/products/product-big-2.jpg" alt="" /></li>
@@ -148,10 +148,10 @@
               <li><img src="/../images/ishop/products/product-big-4.jpg" alt="" /></li>
               <li><img src="/../images/ishop/products/product-big-5.jpg" alt="" /></li>
             </ul>
-            <div class="price-box product-info__price"><span class="price-box__new">$650.00</span> <span class="price-box__old">$658.00</span></div>
+            <div class="price-box product-info__price"><span class="price-box__new">Rs. <%=product[0].newPrice%></span> <span class="price-box__old">Rs. <%=product[0].oldPrice%></span></div>
             <div class="rating product-info__rating hidden-xs"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
             <div class="divider divider--xs product-info__divider"></div>
-            <div class="product-info__description"> Vestibulum justo. Nulla mauris ipsum, convallis ut, vestibulum eu, tincidunt vel, nisi. Curabitur molestie euismod erat. Proin eros odio, mattis rutrum, pulvinar et, egestas vitae, magna. Integer semper, velit ut interdum malesuada, diam dolor pellentesque lacus, vitae commodo orci nisi et sem. Pellentesque adipiscing nisi. Nulla facilisi. Mauris lacinia lectus sit amet felis. </div>
+            <div class="product-info__description"> <%=product[0].features%> </div>
             <div class="divider divider--xs product-info__divider"></div>
 
             <label>Color:</label>
