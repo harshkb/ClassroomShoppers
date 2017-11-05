@@ -22,7 +22,7 @@ app.use(
     connection(mysql,{
         host     : 'localhost',
         user     : 'root',
-        password : 'hello',
+        password : 'root',
         database : 'newDatabase',
         multipleStatements: true,
         debug    : false //set true if you wanna see debug logger
@@ -1028,7 +1028,7 @@ loginAcc.put(function(req,res,next){
 app.use(router);
 
 //start Server
-var server = app.listen(3001,function(){
+var server = app.listen(3000,function(){
 
    console.log("Listening to port %s",server.address().port);
 
