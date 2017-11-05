@@ -150,6 +150,7 @@ home.get(function(req,res,next){
      // res.render('header',);
 
      req.getConnection(function(err,conn){
+     	
 
         var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;",function(err,rows){
             if(err){
@@ -161,6 +162,7 @@ home.get(function(req,res,next){
            
             console.log(rows[0],rows[1]);
             res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1],cart:null,cart_total:null,user_id:null});
+          	//   res.render('index',{title:"subcategory name",categ:rows[0],subcateg:rows[1]});
 
           });
 
@@ -252,9 +254,6 @@ vorder.get(
             
         });
         
-        
-        
-        
       });
       
   });
@@ -289,7 +288,52 @@ vaddress.get(
             if(rows.length < 1)
                 return res.send("User Not found");
 
-            res.render('account-address',{title:"order details",address:rows[2],user:rows[3],categ:rows[0],subcateg:rows[1],cart_total:rows[4],cart:rows[5],user_id:user_id});
+            res.render('account-address',{title:"Account Address",address:rows[2],user:rows[3],categ:rows[0],subcateg:rows[1],cart_total:rows[4],cart:rows[5],user_id:user_id});
+            
+            
+        });
+        
+        
+        
+        
+      });
+      
+  });
+
+//--------------------------------------------------------------------------------------------------------------------
+
+var vabout = router.route('/about/user/:user_id');
+
+
+
+//get data to update
+vabout.get(
+  function(req,res,next)
+  {
+
+    var user_id = req.params.user_id;
+    
+
+    req.getConnection(
+      function(err,conn)
+      {
+
+        if (err) return next("Cannot Connect");
+
+        var order = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category; SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?",[user_id,user_id],function(err,rows)
+        {
+
+            if(err)
+            {
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('about',{title:"About Us",categ:rows[0],subcateg:rows[1],cart_total:rows[2],cart:rows[3],user_id:user_id});
             
             
         });
@@ -407,6 +451,7 @@ vwish.get(
     var user_id = req.params.user_id;
     console.log(user_id);
 
+
     req.getConnection(
       function(err,conn)
       {
@@ -434,49 +479,7 @@ vwish.get(
       
   });
 //--------------------------------------------------------
-//-------------------------About_us----------------------------
-  var vwish = router.route('/about/user/:user_id');
 
-vwish.all(function(req,res,next){
-    console.log("You need to smth about home Route ? Do it here");
-    console.log(req.params);
-    next();
-});
-//get data to update
-vwish.get(
-  function(req,res,next)
-  {
-
-    var user_id = req.params.user_id;
-    console.log(user_id);
-
-    req.getConnection(
-      function(err,conn)
-      {
-        if (err) return next("Cannot Connect");
-
-        var wish = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?",[user_id,user_id],function(err,rows)
-        {
-
-            if(err)
-            {
-                console.log(err);
-                return next("Mysql error, check your query");
-            }
-
-            //if user not found
-            if(rows.length < 1)
-                return res.send("User Not found");
-
-            res.render('about',{title:"aboutus details",user_id:user_id,categ:rows[0],subcateg:rows[1],cart_total:rows[2],cart:rows[3]});
-            
-            
-        });
-        
-      });
-      
-  });
-//--------------------------------------------------------
 //-------------------------sitemap----------------------------
   var vwish = router.route('/sitemap/user/:user_id');
 
@@ -522,6 +525,7 @@ vwish.get(
 //--------------------------------------------------------
  
 //-----------------------------------------------------------
+
 var vcart = router.route('/shopping-cart-right-column/user/:user_id');
 
 vcart.all(function(req,res,next){
@@ -581,15 +585,15 @@ list.all(function(req,res,next){
 //show the CRUD interface | GET
 list.get(function(req,res,next){
 
+var user_id = req.params.user_id;
 var category = req.params.category;
 var subcategory = req.params.subcategory;
-var user_id = req.params.user_id;
 
     req.getConnection(function(err,conn){
 
         if (err) return next("Cannot Connect");
 
-        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName,product_id,subCategoryName,stock FROM Product NATURAL JOIN Sub_Category WHERE Category_id= ? and subCategory_id= ?;Select subCategoryName from Sub_Category WHERE subCategory_id = ? AND Category_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?  ",[category,subcategory,subcategory,category,user_id,user_id],function(err,rows){
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName,product_id,subCategoryName,stock FROM Product NATURAL JOIN Sub_Category WHERE Category_id= ? and subCategory_id= ?;Select subCategoryName from Sub_Category WHERE subCategory_id = ? AND Category_id = ? ;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ? ",[category,subcategory,subcategory,category,user_id,user_id],function(err,rows){
           
             if(err){
                 console.log(err);
@@ -611,6 +615,12 @@ var user_id = req.params.user_id;
 
 
 });
+
+
+
+
+
+
 
 //-------------------------------------------------------------------------------------------------------------
 
@@ -725,7 +735,7 @@ createAcc.post(function(req,res,next){
         firstName:req.body.firstName,
         second_name:req.body.lastName,
         password:req.body.password,
-	     contactNo:null
+	contactNo:null
      };
 
     //inserting into mysql
