@@ -211,37 +211,17 @@
         <h2 class="text-center text-uppercase">featured products</h2>
         <div class="row product-carousel mobile-special-arrows product-grid four-in-row products-listing animated-arrows">
           <!--  -->
-          <div class="product-preview-wrapper">
+          <%for(var i=0;i<productn.length;i++){%>
+        <div class="product-preview-wrapper">
             <div class="product-preview">
-              <div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-empty.png" data-lazy="/../images/ishop/products/product-1.jpg" alt=""/></a></div>
+              <div class="product-preview__image"><a href="/product-layout/<%=productn[i].product_id%>/<%=user_id%>"><img src="/../images/products/<%=productn[i].smallImage%>" data-lazy="/../images/products/<%=productn[i].smallImage%>" alt=""/></a></div>
+              <div class="product-preview__label product-preview__label--left product-preview__label--new"><span>new</span></div>
               <div class="product-preview__label product-preview__label--right product-preview__label--sale"><span>sale<br>
                 -10%</span></div>
               <div class="product-preview__info text-center">
-                <div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
+                <div class="product-preview__info__btns"><a href="#" class="btn btn--round ajax-to-cart"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
                 <div class="product-preview__info__title">
-                  <h2><a href="#">Beats by Dr. Dre Solo2 Wireless Headphones </a></h2>
-                </div>
-                <div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-                <div class="price-box "><span class="price-box__new">$269.95</span> <span class="price-box__old">$299.95</span></div>
-                <div class="product-preview__info__description">
-                  <p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-                  <p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-                </div>
-                <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-              </div>
-            </div>
-          </div>
-          <!-- / -->
-          <!--  -->
-          <div class="product-preview-wrapper">
-            <div class="product-preview">
-              <div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-empty.png" data-lazy="/../images/ishop/products/product-2.jpg" alt=""/></a></div>
-              <div class="product-preview__label product-preview__label--right product-preview__label--sale"><span>sale<br>
-                -10%</span></div>
-              <div class="product-preview__info text-center">
-                <div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-                <div class="product-preview__info__title">
-                  <h2><a href="#">SMART Watch Sport 38mm</a></h2>
+                  <h2><a href=""><%= productn[i].productName %></a></h2>
                 </div>
                 <div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
                 <ul class="options-swatch options-swatch--color">
@@ -253,145 +233,16 @@
                   <li><a href="#"><span class="swatch-label"><img src="/../images/colors/red.png" width="10" height="10" alt=""/></span></a></li>
                   <li><a href="#"><span class="swatch-label"><img src="/../images/colors/white.png" width="10" height="10" alt=""/></span></a></li>
                 </ul>
-                <div class="price-box "><span class="price-box__new">$562.00</span> <span class="price-box__old">$625.00</span></div>
+                <div class="price-box "><span class="price-box__new">Rs. <%= productn[i].newPrice %></span> <span class="price-box__old">Rs. <%= productn[i].oldPrice %></span></div>
                 <div class="product-preview__info__description">
-                  <p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-                  <p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-                </div>
-                <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
+                  <p><%= productn[i].features %></p>
+                     </div>
+                <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#" class="ajax-to-wishlist"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
               </div>
             </div>
           </div>
+          <%}%>
           <!-- / -->
-          <!--  -->
-          <div class="product-preview-wrapper">
-            <div class="product-preview">
-              <div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-empty.png" data-lazy="/../images/ishop/products/product-3.jpg" alt=""/></a></div>
-              <div class="product-preview__label product-preview__label--left product-preview__label--new"><span>new</span></div>
-              <div class="product-preview__info text-center">
-                <div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-                <div class="product-preview__info__title">
-                  <h2><a href="#">iPhoane 6 16 GB Space Gray</a></h2>
-                </div>
-                <div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-                <div class="price-box ">$650.00</div>
-                <div class="product-preview__info__description">
-                  <p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-                  <p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-                </div>
-                <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-              </div>
-            </div>
-          </div>
-          <!-- / -->
-          <!--  -->
-          <div class="product-preview-wrapper">
-            <div class="product-preview">
-              <div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-empty.png" data-lazy="/../images/ishop/products/product-6.jpg" alt=""/></a></div>
-
-              <div class="product-preview__info text-center">
-                <div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-                <div class="product-preview__info__title">
-                  <h2><a href="#">iPaid Air 16 GB Wi-Fi Space Grey</a></h2>
-                </div>
-                <div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-                <div class="price-box ">$65.00</div>
-                <div class="product-preview__info__description">
-                  <p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-                  <p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-                </div>
-                <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-              </div>
-            </div>
-          </div>
-          <!-- / -->
-          <!--  -->
-            <div class="product-preview-wrapper">
-              <div class="product-preview">
-                <div class="product-preview__image"><a href="product.html"><img src="/../images/ishop/products/product-4.jpg" alt=""/></a>
-
-                </div>
-                <div class="product-preview__info text-center">
-                  <div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon  icon-search"></span></a></div>
-                  <div class="product-preview__info__title">
-                    <h2><a href="#">Smart Cover Black/Blue для iPad Air 2  </a></h2>
-                  </div>
-                  <div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-
-                  <div class="price-box ">$89.00</div>
-                  <div class="product-preview__info__description">
-                    <p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-                    <p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-                  </div>
-                  <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- / -->
-          <!--  -->
-            <div class="product-preview-wrapper">
-              <div class="product-preview">
-                <div class="product-preview__image"><a href="product.html"><img src="/../images/ishop/products/product-9.jpg" alt=""/></a>
-                </div>
-                <div class="product-preview__info text-center">
-                  <div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon  icon-search"></span></a></div>
-                  <div class="product-preview__info__title">
-                    <h2><a href="#">BeEts Tour2 In-Ear Headphones </a></h2>
-                  </div>
-                  <div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-
-                  <div class="price-box ">$125.00</div>
-                  <div class="product-preview__info__description">
-                    <p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-                    <p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-                  </div>
-                  <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- / -->
-            <!--  -->
-            <div class="product-preview-wrapper">
-              <div class="product-preview">
-                <div class="product-preview__image"><a href="product.html"><img src="/../images/ishop/products/product-10.jpg" alt=""/></a>
-                </div>
-                <div class="product-preview__info text-center">
-                  <div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon  icon-search"></span></a></div>
-                  <div class="product-preview__info__title">
-                    <h2><a href="#">iPhoane 6 16 GB Space gold </a></h2>
-                  </div>
-                  <div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-
-                  <div class="price-box ">$1250.00</div>
-                  <div class="product-preview__info__description">
-                    <p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-                    <p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-                  </div>
-                  <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-                </div>
-              </div>
-            </div>
-            <!-- / -->
-            <!--  -->
-            <div class="product-preview-wrapper">
-              <div class="product-preview">
-                <div class="product-preview__image"><a href="product.html"><img src="/../images/ishop/products/product-11.jpg" alt=""/></a>
-                </div>
-                <div class="product-preview__info text-center">
-                  <div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon  icon-search"></span></a></div>
-                  <div class="product-preview__info__title">
-                    <h2><a href="#">iPhoane 6 16 GB Space ROSE gold </a></h2>
-                  </div>
-                  <div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-                  <div class="price-box ">$1250.00</div>
-                  <div class="product-preview__info__description">
-                    <p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-                    <p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-                  </div>
-                  <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-                </div>
-              </div>
-            </div>
             <!-- / -->
         </div>
       </div>
