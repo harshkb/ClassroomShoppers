@@ -69,7 +69,7 @@
 								</ul>
 							</div>
 							<div class="category-outer__text">
-								<h2 class="category-outer__text__title text-uppercase"><%=subk[0].subCategoryName%></h2>
+								<h2 class="category-outer__text__title text-uppercase"><%=subk[0].categoryName%></h2>
 								<p>Fusce eu dui. Integer vel nibh sit amet turpis vulputate aliquet. Phasellus id nisi vitae odio pretium aliquam. Pellentesque a leo. Donec consequat lectus sed felis. Quisque vestibulum massa. Nulla ornare. Nulla libero. Donec et mi eu massa ultrices scelerisque. Nullam ac nisi non eros gravida venenatis. Ut euismod, turpis sollicitudin lobortis pellentesque, libero massa dapibus dui, eu dictum justo urna et mi. Integer dictum est vitae sem.</p>
 							</div>
 						</div>
@@ -78,20 +78,24 @@
 				<section class="content">
 					<div class="container">
 						<div class="product-category-carousel mobile-special-arrows animated-arrows slick">
-							<div class="product-category hover-squared">
-								<a href="#"><img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-06.jpg" alt="#"></a>
+							
+							<% if(listin.length){ 
+        					for(var i = 0;i < listin.length;i++) { %>
+        					<div class="product-category hover-squared">
+								<a href="#"> <img src="/../images/category-empty-small.png" data-lazy="/../images/category-img-06.jpg" alt="#"></a>
 								<div class="product-category__hover caption"></div>
 								<div class="product-category__info">
 									<div class="product-category__info__ribbon">
-										<% if(listin.length){ 
-        									for(var i = 0;i < listin.length;i++) { %>
-												<h5 class="product-category__info__ribbon__title"><%=listin[i].productName%></h5>
-												<div class="product-category__info__ribbon__count"><%=listin[i].stock%></div>
-										<% } %>	
-										<% } %>	
-									</div>
+										
+												<h5 class="product-category__info__ribbon__title"><%=listin[i].subCategoryName%></h5>
+												<div class="product-category__info__ribbon__count"><%=listin[i].numberofproduct%> products</div>
 								</div>
-							</div>
+								</div>
+								</div>
+										<% } %>	
+										<% } %>	
+									
+							
 						</div>
 					</div>
 				</section>
@@ -393,10 +397,11 @@
 								</div>
 								<!-- /.modal -->
 								<div class="products-grid products-listing products-col products-isotope four-in-row">
+								<% for(var i=0;i<product.length;i++) {%>
 									<div class="product-preview-wrapper">
 										<div class="product-preview">
 											<div class="product-preview__image">
-												<a href="product.html"><img src="/../images/products/product-1.jpg" alt=""/></a>
+												<a href="/product-layout/<%=product[i].product_id%>/<%=user_id%>"><img src="/../images/products/<%=product[i].smallImage%>" data-lazy="/../images/products/<%=product[i].smallImage%>" alt=""/></a>
 												<div class="product-preview__label product-preview__label--left product-preview__label--new"><span>new</span></div>
 												<div class="product-preview__label product-preview__label--right product-preview__label--sale"><span>sale<br>
 													-10%</span>
@@ -405,7 +410,7 @@
 											<div class="product-preview__info text-center">
 												<div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
 												<div class="product-preview__info__title">
-													<h2><a href="#">Fast Seconds Knit White</a></h2>
+													<h2><a href="/product-layout/<%=product[i].product_id%>/<%=user_id%>"><%=product[i].productName%></a></h2>
 												</div>
 												<div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
 												<ul class="options-swatch options-swatch--color">
@@ -417,158 +422,15 @@
 													<li><a href="#"><span class="swatch-label"><img src="/../images/colors/red.png" width="10" height="10" alt=""/></span></a></li>
 													<li><a href="#"><span class="swatch-label"><img src="/../images/colors/white.png" width="10" height="10" alt=""/></span></a></li>
 												</ul>
-												<div class="price-box "><span class="price-box__new">$65.00</span> <span class="price-box__old">$84.00</span></div>
+												<div class="price-box "><span class="price-box__new">$<%=product[i].newPrice%></span> <span class="price-box__old">$<%=product[i].oldPrice%></span></div>
 												<div class="product-preview__info__description">
-													<p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-													<p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
+													<p><%= product[i].features %></p>
 												</div>
 												<div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
 											</div>
 										</div>
 									</div>
-									<div class="product-preview-wrapper">
-										<div class="product-preview">
-											<div class="product-preview__image">
-												<a href="product.html"><img src="/../images/products/product-2.jpg"  alt=""/></a>
-												<div class="countdown_box">
-													<div class="countdown_inner">
-														<div class="title">special price valid:</div>
-														<div id="countdown1"></div>
-													</div>
-												</div>
-											</div>
-											<div class="product-preview__info text-center">
-												<div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-												<div class="product-preview__info__title">
-													<h2><a href="#">Fast Seconds Knit White</a></h2>
-												</div>
-												<div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-												<ul class="options-swatch options-swatch--color">
-													<li><a href="#"><span class="swatch-label"><img src="/../images/colors/blue.png" width="10" height="10" alt=""/></span></a></li>
-													<li><a href="#"><span class="swatch-label"><img src="/../images/colors/yellow.png" width="10" height="10" alt=""/></span></a></li>
-													<li><a href="#"><span class="swatch-label"><img src="/../images/colors/green.png" width="10" height="10" alt=""/></span></a></li>
-													<li><a href="#"><span class="swatch-label"><img src="/../images/colors/dark-grey.png" width="10" height="10" alt=""/></span></a></li>
-													<li><a href="#"><span class="swatch-label"><img src="/../images/colors/grey.png" width="10" height="10" alt=""/></span></a></li>
-													<li><a href="#"><span class="swatch-label"><img src="/../images/colors/red.png" width="10" height="10" alt=""/></span></a></li>
-													<li><a href="#"><span class="swatch-label"><img src="/../images/colors/white.png" width="10" height="10" alt=""/></span></a></li>
-												</ul>
-												<div class="price-box"><span class="price-box__new">$65.00</span> <span class="price-box__old">$84.00</span></div>
-												<div class="product-preview__info__description">
-													<p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-													<p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-												</div>
-												<div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-											</div>
-										</div>
-									</div>
-									<div class="product-preview-wrapper">
-										<div class="product-preview">
-											<div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-3.jpg"  alt=""/></a></div>
-											<div class="product-preview__info text-center">
-												<div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-												<div class="product-preview__info__title">
-													<h2><a href="#">Fast Seconds Knit White</a></h2>
-												</div>
-												<div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-												<div class="price-box">$65.00</div>
-												<div class="product-preview__info__description">
-													<p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-													<p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-												</div>
-												<div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-											</div>
-										</div>
-									</div>
-									<div class="product-preview-wrapper">
-										<div class="product-preview">
-											<div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-4.jpg"  alt=""/></a></div>
-											<div class="product-preview__info text-center">
-												<div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-												<div class="product-preview__info__title">
-													<h2><a href="#">Fast Seconds Knit White</a></h2>
-												</div>
-												<div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-												<div class="price-box">$65.00</div>
-												<div class="product-preview__info__description">
-													<p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-													<p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-												</div>
-												<div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-											</div>
-										</div>
-									</div>
-									<div class="product-preview-wrapper">
-										<div class="product-preview">
-											<div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-5.jpg"  alt=""/></a></div>
-											<div class="product-preview__info text-center">
-												<div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-												<div class="product-preview__info__title">
-													<h2><a href="#">Fast Seconds Knit White</a></h2>
-												</div>
-												<div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-												<div class="price-box">$65.00</div>
-												<div class="product-preview__info__description">
-													<p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-													<p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-												</div>
-												<div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-											</div>
-										</div>
-									</div>
-									<div class="product-preview-wrapper">
-										<div class="product-preview">
-											<div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-6.jpg"  alt=""/></a></div>
-											<div class="product-preview__info text-center">
-												<div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-												<div class="product-preview__info__title">
-													<h2><a href="#">Fast Seconds Knit White</a></h2>
-												</div>
-												<div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-												<div class="price-box">$65.00</div>
-												<div class="product-preview__info__description">
-													<p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-													<p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-												</div>
-												<div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-											</div>
-										</div>
-									</div>
-									<div class="product-preview-wrapper">
-										<div class="product-preview">
-											<div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-7.jpg"  alt=""/></a></div>
-											<div class="product-preview__info text-center">
-												<div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-												<div class="product-preview__info__title">
-													<h2><a href="#">Fast Seconds Knit White</a></h2>
-												</div>
-												<div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-												<div class="price-box">$65.00</div>
-												<div class="product-preview__info__description">
-													<p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-													<p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-												</div>
-												<div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-											</div>
-										</div>
-									</div>
-									<div class="product-preview-wrapper">
-										<div class="product-preview">
-											<div class="product-preview__image"><a href="product.html"><img src="/../images/products/product-8.jpg"  alt=""/></a></div>
-											<div class="product-preview__info text-center">
-												<div class="product-preview__info__btns"><a href="#" class="btn btn--round"><span class="icon-ecommerce"></span></a> <a href="quick-view.html" class="btn btn--round btn--dark btn-quickview" data-toggle="modal" data-target="#quickView"><span class="icon icon-eye"></span></a></div>
-												<div class="product-preview__info__title">
-													<h2><a href="#">Fast Seconds Knit White</a></h2>
-												</div>
-												<div class="rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></div>
-												<div class="price-box">$65.00</div>
-												<div class="product-preview__info__description">
-													<p>Nulla at mauris leo. Donec quis ex elementum, tincidunt elit quis, cursus tortor. Sed sollicitudin enim metus, ut hendrerit orci dignissim venenatis.</p>
-													<p>Suspendisse consectetur odio diam, ut consequat quam aliquet at.</p>
-												</div>
-												<div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
-											</div>
-										</div>
-									</div>
+									<% } %>
 								</div>
 							</div>
 						</div>

@@ -575,7 +575,7 @@ vcart.get(
   });
 
 //-------------------------------------------------------------------------------------------------------------------------
-var list = router.route('/user/:category/:subcategory/:user_id');
+var list = router.route('/user/:category/:user_id');
 
 list.all(function(req,res,next){
     console.log("You need to smth about list Route ? Do it here");
@@ -593,7 +593,7 @@ var subcategory = req.params.subcategory;
 
         if (err) return next("Cannot Connect");
 
-        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT productName,product_id,subCategoryName,stock FROM Product NATURAL JOIN Sub_Category WHERE Category_id= ? and subCategory_id= ?;Select subCategoryName from Sub_Category WHERE subCategory_id = ? AND Category_id = ? ;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ? ",[category,subcategory,subcategory,category,user_id,user_id],function(err,rows){
+        var query = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT * FROM Product NATURAL JOIN category WHERE Category_id= ?;Select categoryName from category WHERE Category_id = ? ;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?; SELECT subCategoryName,numberofproduct FROM category NATURAL JOIN Sub_Category WHERE Category_id=? ",[category,category,user_id,user_id,category],function(err,rows){
           
             if(err){
                 console.log(err);
@@ -603,7 +603,7 @@ var subcategory = req.params.subcategory;
             if(rows[2].length < 1)
                 return  res.render('listing-empty-category',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],subv:rows[3],cart:rows[4],cart_total:rows[5],user_id:user_id});
               else{ 
-            res.render('listing',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],listin:rows[2],subk:rows[3],subv:rows[3],cart:rows[4],cart_total:rows[5],user_id:user_id});}
+            res.render('listing',{title:"RESTful Crud Example",categ:rows[0],subcateg:rows[1],product:rows[2],subk:rows[3],subv:rows[3],cart:rows[4],cart_total:rows[5],user_id:user_id,listin:rows[6]});}
          });
 
     });
@@ -628,7 +628,7 @@ var user_id = req.params.user_id;
 
                if (err) return next("Cannot Connect");
 
-        var order = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category; SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT * FROM Product WHERE product_id= '"+product_id+"' ",[user_id,user_id],function(err,rows)
+        var order = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category; SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT * FROM Product WHERE product_id= '"+product_id+"';SELECT * FROM IndexProduct NATURAL JOIN Product WHERE type = 'featured product' ",[user_id,user_id],function(err,rows)
         {
 
             if(err)
@@ -641,7 +641,7 @@ var user_id = req.params.user_id;
             if(rows.length < 1)
                 return res.send("User Not found");
 
-            res.render('product-layout4',{title:"product-layout4",categ:rows[0],subcateg:rows[1],cart_total:rows[2],cart:rows[3],user_id:user_id,product:rows[4]});
+            res.render('product-layout4',{title:"product-layout4",categ:rows[0],subcateg:rows[1],cart_total:rows[2],cart:rows[3],user_id:user_id,product:rows[4],productn:rows[5]});
             
             
         });
