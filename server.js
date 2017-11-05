@@ -22,7 +22,7 @@ app.use(
     connection(mysql,{
         host     : 'localhost',
         user     : 'root',
-        password : 'root',
+        password : 'hello',
         database : 'newDatabase',
         multipleStatements: true,
         debug    : false //set true if you wanna see debug logger
@@ -628,7 +628,7 @@ var user_id = req.params.user_id;
 
                if (err) return next("Cannot Connect");
 
-        var order = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category; SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT * FROM Product WHERE product_id= '"+product_id+"' ",[user_id,user_id],function(err,rows)
+        var order = conn.query("SELECT Category_id,categoryName FROM category;SELECT Subcategory_id,subCategoryName,Category_id FROM Sub_Category;SELECT sum(newPrice * quantity) as total FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT productName, newPrice, smallImage, quantity, (newPrice * quantity) as subtotal FROM Cart natural join Product WHERE Cart.email_id = ?;SELECT * FROM Product WHERE product_id = ?;select avg(raint) as average from Review where product_id = ? and email_id = ? ;select count(*) as count_total from Review where product_id = ? and email_id = ? ;select count(*) as count_r5 from Review where product_id = ? and email_id = ? and raint= 5;select count(*) as count_r4 from Review where product_id = ? and email_id = ? and raint= 4;select count(*) as count_r3 from Review where product_id = ? and email_id = ? and raint= 3;select count(*) as count_r2 from Review where product_id = ? and email_id = ? and raint= 2;select count(*) as count_r1 from Review where product_id = ? and email_id = ? and raint= 1;select * from Review where product_id = ? and email_id = ?",[user_id,user_id,product_id,product_id,user_id,product_id,user_id,product_id,user_id,product_id,user_id,product_id,user_id,product_id,user_id,product_id,user_id,product_id,user_id],function(err,rows)
         {
 
             if(err)
@@ -641,7 +641,16 @@ var user_id = req.params.user_id;
             if(rows.length < 1)
                 return res.send("User Not found");
 
-            res.render('product-layout4',{title:"product-layout4",categ:rows[0],subcateg:rows[1],cart_total:rows[2],cart:rows[3],user_id:user_id,product:rows[4]});
+            res.render('product-layout4',{title:"product-layout4",categ:rows[0],subcateg:rows[1],cart_total:rows[2],cart:rows[3],user_id:user_id,product:rows[4]
+              ,review_rating:rows[5]
+              ,review_count:rows[6]
+              ,review_r5:rows[7]
+              ,review_r4:rows[8]
+              ,review_r3:rows[9]
+              ,review_r2:rows[10]
+              ,review_r1:rows[11]
+              ,reviews:rows[12]
+          });
             
             
         });
@@ -1013,7 +1022,7 @@ loginAcc.put(function(req,res,next){
 app.use(router);
 
 //start Server
-var server = app.listen(3000,function(){
+var server = app.listen(3001,function(){
 
    console.log("Listening to port %s",server.address().port);
 
