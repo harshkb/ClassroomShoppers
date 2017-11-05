@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.28, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
 --
--- Host: localhost    Database: newDatabase
+-- Host: localhost    Database: final
 -- ------------------------------------------------------
--- Server version	5.6.28-0ubuntu0.15.04.1
+-- Server version	5.7.20-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,6 +40,7 @@ CREATE TABLE `Cart` (
 
 LOCK TABLES `Cart` WRITE;
 /*!40000 ALTER TABLE `Cart` DISABLE KEYS */;
+INSERT INTO `Cart` VALUES ('anujainbhav@gmail.com',1,1,2),('anujainbhav@gmail.com',2,1,4);
 /*!40000 ALTER TABLE `Cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,6 +66,7 @@ CREATE TABLE `IndexProduct` (
 
 LOCK TABLES `IndexProduct` WRITE;
 /*!40000 ALTER TABLE `IndexProduct` DISABLE KEYS */;
+INSERT INTO `IndexProduct` VALUES ('dealsofday',1),('featured product',1),('featured product',2),('trending',2),('featured product',3),('dealsofday',4);
 /*!40000 ALTER TABLE `IndexProduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,6 +98,7 @@ CREATE TABLE `Orders` (
 
 LOCK TABLES `Orders` WRITE;
 /*!40000 ALTER TABLE `Orders` DISABLE KEYS */;
+INSERT INTO `Orders` VALUES ('amanagarwal@gmail.com',2,2,50,'2017-11-05 09:10:19','shipped',2),('anujainbhav@gmail.com',1,1,1,'2017-11-05 09:09:10','delievered',1);
 /*!40000 ALTER TABLE `Orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,8 +125,7 @@ CREATE TABLE `Product` (
   `isAssured` tinyint(1) NOT NULL,
   `COD` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
-  UNIQUE KEY `Category_id` (`Category_id`),
-  UNIQUE KEY `Subcategory_id` (`Subcategory_id`),
+  KEY `Product_ibfk_1` (`Category_id`),
   CONSTRAINT `Product_ibfk_1` FOREIGN KEY (`Category_id`) REFERENCES `category` (`Category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -134,6 +136,7 @@ CREATE TABLE `Product` (
 
 LOCK TABLES `Product` WRITE;
 /*!40000 ALTER TABLE `Product` DISABLE KEYS */;
+INSERT INTO `Product` VALUES (1,1,1,'SamsungJ7',7390,10000,'worst phone ever',1,1,100,'SamsungJ7.png','Samsung.png',1,1),(2,2,2,'Adidas1',2000,10000,'worst tshirt ever',1,1,100,'Adidas1.png','Adidas.png',1,1),(3,3,3,'Bangles1',20000,100000,'worst bangles ever',1,1,100,'bangles1.png','bangles.png',1,1),(4,4,4,'Cyska1',2000,10000,'worst light ever',1,1,100,'cyska1.png','cyska.png',1,1);
 /*!40000 ALTER TABLE `Product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,6 +164,7 @@ CREATE TABLE `Region` (
 
 LOCK TABLES `Region` WRITE;
 /*!40000 ALTER TABLE `Region` DISABLE KEYS */;
+INSERT INTO `Region` VALUES (247667,1,12,500),(452014,1,5,50);
 /*!40000 ALTER TABLE `Region` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,6 +195,7 @@ CREATE TABLE `Review` (
 
 LOCK TABLES `Review` WRITE;
 /*!40000 ALTER TABLE `Review` DISABLE KEYS */;
+INSERT INTO `Review` VALUES (1,'anujainbhav@gmail.com',1,4,'shit product','2017-11-05 09:12:21'),(2,'anujainbhav@gmail.com',1,5,'good product','2017-11-05 09:12:47');
 /*!40000 ALTER TABLE `Review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,6 +221,7 @@ CREATE TABLE `Seller` (
 
 LOCK TABLES `Seller` WRITE;
 /*!40000 ALTER TABLE `Seller` DISABLE KEYS */;
+INSERT INTO `Seller` VALUES (1,'classroom','fake seller','classroom.png');
 /*!40000 ALTER TABLE `Seller` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,8 +236,7 @@ CREATE TABLE `Sells` (
   `product_id` int(11) NOT NULL,
   `seller_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`seller_id`),
-  UNIQUE KEY `product_id` (`product_id`),
-  UNIQUE KEY `seller_id` (`seller_id`),
+  KEY `Sells_ibfk_2` (`seller_id`),
   CONSTRAINT `Sells_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `Product` (`product_id`),
   CONSTRAINT `Sells_ibfk_2` FOREIGN KEY (`seller_id`) REFERENCES `Seller` (`seller_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -243,6 +248,7 @@ CREATE TABLE `Sells` (
 
 LOCK TABLES `Sells` WRITE;
 /*!40000 ALTER TABLE `Sells` DISABLE KEYS */;
+INSERT INTO `Sells` VALUES (1,1),(2,1),(3,1),(4,1);
 /*!40000 ALTER TABLE `Sells` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,6 +276,7 @@ CREATE TABLE `Shipping` (
 
 LOCK TABLES `Shipping` WRITE;
 /*!40000 ALTER TABLE `Shipping` DISABLE KEYS */;
+INSERT INTO `Shipping` VALUES ('anujainbhav@gmail.com',1,'roorkee',247667,''),('anujainbhav@gmail.com',2,'indore',452014,'\0');
 /*!40000 ALTER TABLE `Shipping` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,7 +304,7 @@ CREATE TABLE `Sub_Category` (
 
 LOCK TABLES `Sub_Category` WRITE;
 /*!40000 ALTER TABLE `Sub_Category` DISABLE KEYS */;
-INSERT INTO `Sub_Category` VALUES (1,1,'jhh',2,0),(1,2,'jha',2,0),(2,1,'jhk',2,0),(2,2,'jh9',2,0),(3,1,'jdfc',2,0),(3,2,'jdcsa',2,0);
+INSERT INTO `Sub_Category` VALUES (1,1,'Mobiles',2,1),(1,2,'Laptops',2,1),(2,1,'Footwear',2,1),(2,2,'Topwear',2,1),(3,1,'Footwear',2,1),(3,2,'Topwear',2,1),(3,3,'Jwellery',2,1),(4,1,'KitchenProducts',2,1),(4,2,'Furniture',2,1),(4,4,'Lighting',2,1);
 /*!40000 ALTER TABLE `Sub_Category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +332,7 @@ CREATE TABLE `USER` (
 
 LOCK TABLES `USER` WRITE;
 /*!40000 ALTER TABLE `USER` DISABLE KEYS */;
-INSERT INTO `USER` VALUES ('amrityavagmi@gmail.com','amritya','yagni','amritya123',0,NULL),('asd@asd.com','dsasda','asda','abcabc',0,NULL),('hkbansal1995@gmail.com','ckd','cjna','harsh123',0,NULL),('hkbansal1997','harsh','bansal','harshkb',0,NULL),('hkbansal1997@gmail.com','harsh','bansal','harshkb',0,NULL),('jcbn@fmks.com','casca','scac','harsh123',0,NULL);
+INSERT INTO `USER` VALUES ('amanagarwal@gmail.com','Aman','Agarwal','aman@123',1,1111111112),('anujainbhav@gmail.com','Anubhav','Jain','anubhav@123',1,1111111111);
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,6 +359,7 @@ CREATE TABLE `based_on_searches` (
 
 LOCK TABLES `based_on_searches` WRITE;
 /*!40000 ALTER TABLE `based_on_searches` DISABLE KEYS */;
+INSERT INTO `based_on_searches` VALUES ('amanagarwal@gmail.com',1),('anujainbhav@gmail.com',1),('anujainbhav@gmail.com',3),('amanagarwal@gmail.com',4);
 /*!40000 ALTER TABLE `based_on_searches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,7 +384,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Appliances',0),(2,'harsh',0),(3,'him',0);
+INSERT INTO `category` VALUES (1,'Electronics',1),(2,'Men',1),(3,'Women',1),(4,'Home & Furnitures',1);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -389,4 +397,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-02 19:15:58
+-- Dump completed on 2017-11-05 15:14:40
