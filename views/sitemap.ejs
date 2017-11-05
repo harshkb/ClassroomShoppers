@@ -69,108 +69,29 @@
       <div class="container">
         <h2 class="text-uppercase">sitemap</h2>
         <div class="panel-group" id="sitemap">
+        <% for(var i = 0;i < categ.length;i++) { %>
           <div class="panel panel-default" role="tablist">
             <div class="panel-heading" role="tab">
-              <h4 class="panel-title"> <a role="button" data-toggle="collapse" href="#collapseOne"> Woman </a> </h4>
+              <h4 class="panel-title"> <a role="button" data-toggle="collapse" href="#collapseOne"> <%=categ[i].categoryName%> </a> </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
               <div class="panel-body">
                 <div class="row">
                   <div class="col-sm-6 col-md-3">
                     <ul class="simple-list">
-                      <li><a href="#">Featured products</a></li>
-                      <li><a href="#">New arrivals</a></li>
-                      <li><a href="#">Bestsellers</a></li>
-                    </ul>
-                  </div>
-                  <div class="col-sm-6 col-md-3">
-                    <ul class="simple-list">
-                      <li><a href="#">Footwear Womens</a></li>
-                      <li><a href="#">Shorts</a></li>
+                     <% for(var j = 0;j < subcateg.length;j++) { %>
+                     <% if(subcateg[j].Category_id==categ[i].Category_id){%>    
+                      <li><a href="/user/<%=categ[i].Category_id%>/<%=user_id%>"><%=subcateg[j].subCategoryName%></a></li>
+                      <% } %>
+                      <% } %>
                     </ul>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="panel panel-default" role="tablist">
-            <div class="panel-heading" role="tab">
-              <h4 class="panel-title"> <a role="button" data-toggle="collapse" href="#collapseTwo"> Man </a> </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel">
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-sm-6 col-md-3">
-                    <ul class="simple-list">
-                      <li><a href="#"> Polo Shirts</a></li>
-                      <li><a href="#"> Shirts</a></li>
-                      <li><a href="#"> Big &amp; Tall</a></li>
-                    </ul>
-                  </div>
-                  <div class="col-sm-6 col-md-3">
-                    <ul class="simple-list">
-                      <li><a href="#"> Jeans</a></li>
-                      <li><a href="#"> Sweaters</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default" role="tablist">
-            <div class="panel-heading" role="tab">
-              <h4 class="panel-title"> <a role="button" data-toggle="collapse" href="#collapseThree"> Footwear </a> </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel">
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-sm-6 col-md-3">
-                    <ul class="simple-list">
-                      <li><a href="#"> Polo Shirts</a></li>
-                      <li><a href="#"> Shirts</a></li>
-                      <li><a href="#"> Big &amp; Tall</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default" role="tablist">
-            <div class="panel-heading" role="tab">
-              <h4 class="panel-title"> <a role="button" data-toggle="collapse" href="#collapseFour"> Accessories </a> </h4>
-            </div>
-            <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel">
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-sm-6 col-md-3">
-                    <ul class="simple-list">
-                      <li><a href="#"> Polo Shirts</a></li>
-                      <li><a href="#"> Shirts</a></li>
-                      <li><a href="#"> Big &amp; Tall</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default" role="tablist">
-            <div class="panel-heading" role="tab">
-              <h4 class="panel-title"> <a role="button" data-toggle="collapse" href="#collapseFive"> Sale </a> </h4>
-            </div>
-            <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel">
-              <div class="panel-body">
-                <div class="row">
-                  <div class="col-sm-6 col-md-3">
-                    <ul class="simple-list">
-                      <li><a href="#"> Polo Shirts</a></li>
-                      <li><a href="#"> Shirts</a></li>
-                      <li><a href="#"> Big &amp; Tall</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <% } %>
+          
           <div class="panel panel-default" role="tablist">
             <div class="panel-heading" role="tab">
               <h4 class="panel-title"> <a role="button" data-toggle="collapse" href="#collapseSix"> My Account </a> </h4>
@@ -180,8 +101,8 @@
                 <div class="row">
                   <div class="col-sm-6 col-md-3">
                     <ul class="simple-list">
-                      <li><a href="#"> My Account</a></li>
-                      <li><a href="#"> Order history</a></li>
+                      <li><a href="/account-order/user/<%=user_id%>"> My Account</a></li>
+                      <li><a href="/account-order/user/<%=user_id%>"> Order history</a></li>
                     </ul>
                   </div>
                   <div class="col-sm-6 col-md-3">
@@ -204,7 +125,7 @@
                   <div class="col-sm-6 col-md-3">
                     <ul class="simple-list">
                       <li><a href="#"> Online support</a></li>
-                      <li><a href="#"> Help & FAQs</a></li>
+                      <li><a href="/faq/user/<%=user_id%>"> Help & FAQs</a></li>
                     </ul>
                   </div>
                   <div class="col-sm-6 col-md-3">
@@ -225,7 +146,7 @@
                 <div class="row">
                   <div class="col-sm-6 col-md-3">
                     <ul class="simple-list">
-                      <li><a href="#">About Us</a></li>
+                      <li><a href="/about/user/<%=user_id%>">About Us</a></li>
                       <li><a href="#">Shipping & Returns</a></li>
                     </ul>
                   </div>
