@@ -76,10 +76,10 @@
             <p>&lt;&nbsp; <a href="#">Return to account page</a></p>
           </div>
           <div class="card__row-line">
-            <% if(address.length) { %>
-            <% for(var i = 0;i < address.length;i++) { %>
+            <% if(addressv.length) { %>
+            <% for(var i = 0;i < addressv.length;i++) { %>
             
-            <h4 class="text-uppercase h-pad-xs"><%address[i].address%> <%address[i].isdefault%></h4>
+            <h4 class="text-uppercase h-pad-xs"><%=addressv[i].address%> ,<%=addressv[i].pincode%> <%=addressv[i].isdefault%></h4>
             
             <% } %>
             <% } %>

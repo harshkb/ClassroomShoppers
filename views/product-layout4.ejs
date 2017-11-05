@@ -237,7 +237,7 @@
                 <div class="product-preview__info__description">
                   <p><%= productn[i].features %></p>
                      </div>
-                <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#" class="ajax-to-wishlist"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text">Add to cart</span></a></div>
+                <div class="product-preview__info__link"><a href="#" class="compare-link"><span class="icon icon-bars"></span><span class="product-preview__info__link__text">Add to compare</span></a> <a href="#" class="ajax-to-wishlist"><span class="icon icon-favorite"></span><span class="product-preview__info__link__text">Add to wishlist</span></a><a href="#" class="btn btn--wd buy-link"><span class="icon icon-ecommerce"></span><span class="product-preview__info__link__text" onclick ="">Add to cart</span></a></div>
               </div>
             </div>
           </div>
@@ -337,10 +337,10 @@
                 <div class="col-lg-12">
                   <h1 class="rating-extended__num pull-left"> <%=review_rating[0].average%></h1>
                   <div class="rating">
-                    <% for(var i = 1;i <= (int)(review_rating[0]);i++) { %>
+                    <% for(var i = 1;i <= review_rating[0].average;i++) { %>
                     <span class="icon icon-star"></span>
                     <% } %>
-                    <% for(var i = 1;i <= 5-((int)(review_rating[0]));i++) { %>
+                    <% for(var i = 1;i <= 5-review_rating[0].average;i++) { %>
                     <span class="icon icon-star empty-star"></span>
                     <% } %>
                   </div>
