@@ -323,6 +323,11 @@
           <h5 class="text-uppercase">Free returns pick-up</h5>
           <p>You have 14 days from receiving your order to return the item to the boutique using our free returns pick-up service. We strongly recommend that you book your free returns pick-up within 7 days of receiving your order to ensure that it arrives back to the boutique in time. Please note for standard orders we can only collect returns from the same country to which your order was delivered. For click and collect orders we can collect your return from the country your order was delivered to and also the country of the original boutique you ordered from. We are unable to accept returns of earrings for hygiene reasons. We are also unable to accept returns of fine Jewellery. Click here to read our full returns policy.</p>
         </section>
+
+
+
+
+        <!-- ------------anubhav--------- -->
         <section class="product-additional__box" id="Reviews">
           <h3 class="text-uppercase">Reviews</h3>
           <p class="hidden">Be the first to review this product</p>
@@ -330,65 +335,83 @@
             <div class="col-sm-5 col-md-4 col-lg-3">
               <div class="rating-extended row">
                 <div class="col-lg-12">
-                  <h1 class="rating-extended__num pull-left"> 4.75</h1>
-                  <div class="rating"> <span class="icon icon-star"></span><span class="icon icon-star"></span><span class="icon icon-star"></span><span class="icon icon-star"></span><span class="icon icon-star empty-star"></span> </div>
-                  <div> <span class="icon icon-man"></span> 20 reviews</div>
+                  <h1 class="rating-extended__num pull-left"> <%=review_rating[0].average%></h1>
+                  <div class="rating">
+                    <% for(var i = 1;i <= (int)(review_rating[0]);i++) { %>
+                    <span class="icon icon-star"></span>
+                    <% } %>
+                    <% for(var i = 1;i <= 5-((int)(review_rating[0]));i++) { %>
+                    <span class="icon icon-star empty-star"></span>
+                    <% } %>
+                  </div>
+                  <div> <span class="icon icon-man"></span> <%=review_count[0].count_total%></div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-lg-12">
                   <div class="progress"><span class="rating-extended__label">5 stars</span>
                     <div class="progress-bar progress-bar-five" role="progressbar" aria-valuenow="20"
                                         aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div>
-                    <span class="rating-extended__reviews-count">10</span> </div>
+                    <span class="rating-extended__reviews-count"><%=review_r5[0].count_r5%></span> </div>
                   <div class="clearfix"></div>
                   <div class="progress"><span class="rating-extended__label">4 stars</span>
                     <div class="progress-bar progress-bar-four" role="progressbar" aria-valuenow="20"
                                         aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
-                    <span class="rating-extended__reviews-count">4</span> </div>
+                    <span class="rating-extended__reviews-count"><%=review_r4[0].count_r4%></span> </div>
                   <div class="clearfix"></div>
                   <div class="progress"><span class="rating-extended__label">3 stars</span>
                     <div class="progress-bar progress-bar-three" role="progressbar" aria-valuenow="20"
                                         aria-valuemin="0" aria-valuemax="100" style="width: 20%"></div>
-                    <span class="rating-extended__reviews-count">3</span> </div>
+                    <span class="rating-extended__reviews-count"><%=review_r3[0].count_r3%></span> </div>
                   <div class="clearfix"></div>
                   <div class="progress"><span class="rating-extended__label">2 stars</span>
                     <div class="progress-bar progress-bar-two" role="progressbar" aria-valuenow="20"
                                         aria-valuemin="0" aria-valuemax="100" style="width: 15%"></div>
-                    <span class="rating-extended__reviews-count">2</span> </div>
+                    <span class="rating-extended__reviews-count"><%=review_r2[0].count_r2%></span> </div>
                   <div class="clearfix"></div>
                   <div class="progress"><span class="rating-extended__label">1 stars</span>
                     <div class="progress-bar progress-bar-one" role="progressbar" aria-valuenow="20"
                                         aria-valuemin="0" aria-valuemax="100" style="width: 10%"></div>
-                    <span class="rating-extended__reviews-count">1</span> </div>
+                    <span class="rating-extended__reviews-count"><%=review_r1[0].count_r1%></span> </div>
                 </div>
               </div>
               <div><a href="#" class="custom-color underline">Add your review</a> </div>
               <div class="divider divider--md"></div>
             </div>
-            <div class="col-sm-7 col-md-8 col-lg-9"> <a href="#" class="custom-color underline">View all 12 reviews</a>
+            <div class="col-sm-7 col-md-8 col-lg-9"> <a href="#" class="custom-color underline">View all <%=review_count[0].count_total%> reviews</a>
               <div class="divider divider--sm"></div>
+
+
               <h4 class="text-uppercase h-pad-xs">Most Helpful Customer Reviews</h4>
+
+              <% for(var j = 0;j < reviews.length;j++) { %>
+
               <div class="review">
-                <div class="rating"> <span class="icon icon-star"></span><span class="icon icon-star"></span><span class="icon icon-star"></span><span class="icon icon-star"></span><span class="icon icon-star empty-star"></span> </div>
-                <h5 class="review__title">THIS IS A SKIRT WITH SHORTS IN IT!!</h5>
-                <div class="review__content">I'm so happy at this discovery, omg. I got the beige one with the roses, lipstick prints and champagne glasses. My only issue is that the glasses are upside down but it looks like the rest of the print was made to be used either direction. It doesn't have a belt or beltloops, but it tells you that. Also, the skirt is high waisted. Basically this skirt was full of good surprises. I'll be buying more, especially for 5 bucks. Sorry the photos uploaded sideways.</div>
-                <div class="review__meta">By <a href="#"><strong>ander</strong></a> on November 25, 2014</div>
+                <div class="rating">
+                  <% for(var i = 1;i <= reviews[j].raint;i++) { %>
+                    <span class="icon icon-star"></span>
+                  <% } %>
+                  <% for(var i = 1;i <= 5-reviews[j].raint;i++) { %>
+                    <span class="icon icon-star empty-star"></span>
+                  <% } %>
+                </div>
+                <div class="review__content"><%=reviews[j].comments%></div>
+                <div class="review__meta">By <a href="#"><strong> <%=reviews[j].email_id%> </strong></a> on <%=reviews[j].timeStamp%>
+                </div>
                 <div class="review__comments"><a href="#">Comments (1)</a></div>
                 <div class="review__helpful">Was this review helpful to you? <a href="#">Yes</a> <a href="#">No</a></div>
               </div>
-              <div class="review">
-                <div class="rating"> <span class="icon icon-star"></span><span class="icon icon-star"></span><span class="icon icon-star"></span><span class="icon icon-star"></span><span class="icon icon-star empty-star"></span> </div>
-                <h5 class="review__title">Excellent, I appreciate!</h5>
-                <div class="review__content">Lovely dress, just like on the photo. The size is like EU 36. It has loose pants sewn underneath, so you don't have to worry that someone will see your butt ;) i love it, it took a while to get here but its worth the wait especially for the price. it is form fitting so if you aren't sure about what size to order then go with the next size up from what you would normally buy.</div>
-                <div class="review__meta">By <a href="#"><strong>ander</strong></a> on November 25, 2014</div>
-                <div class="review__comments"><a href="#">Comments (1)</a></div>
-                <div class="review__helpful">Was this review helpful to you? <a href="#">Yes</a> <a href="#">No</a></div>
-              </div>
+
+              <% } %>
+
+              
               <a href="#" class="custom-color underline">View all 12 reviews</a>
               <div class="divider divider--xs"></div>
               <a href="#" class="btn btn--wd">Write a review</a> </div>
           </div>
         </section>
+
+
+        
         <section class="product-additional__box" id="Tags">
           <h3 class="text-uppercase">Tags</h3>
           <p>Other people marked this product with these tags:</p>
